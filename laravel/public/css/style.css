@@ -1,0 +1,145 @@
+/* 共通部分 */
+body,
+p,
+ul,
+td,
+th {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: rgb(254 255 224);
+}
+
+.container {
+    margin: 50px 30%;
+}
+
+.main_title {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 35px;
+}
+
+/* 会員登録画面 */
+/* =========== */
+
+/* 共通部分 */
+.sub_title {
+    font-size: 27px;
+    width: 40%;
+}
+
+.sub_title_address {
+    font-size: 20px;
+}
+
+.item_label {
+    font-size: 20px;
+}
+
+.input_items {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.item_group {
+    margin-bottom: 50px;
+}
+
+.sub_group {
+    width: 20%;
+}
+
+/* 名前入力欄 */
+.input_name {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.input_name_items {
+    align-items: center;
+    margin-right: 10px;
+}
+
+.input_name_items input {
+    height: 100%;
+}
+
+/* 住所入力欄 */
+.input_address {
+    width: 80%;
+    margin-bottom: 30px;
+}
+
+.input_address_items {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.address_indi {
+    margin-bottom: 20px;
+}
+
+
+.sub_title_address {
+    width: 40%;
+}
+
+.sub_address_input {
+    width: 60%;
+}
+
+/* パスワード、メールアドレス入力欄 */
+.regi_input {
+    width: 60%;
+}
+
+/* 登録ボタン */
+.member_regi_submit {
+    text-align: center;
+}
+
+.regi_btn {
+    margin-bottom: 20px;
+}
+
+.member_regi_btn {
+    font-size: 25px;
+    color: white;
+    background-color: #ff8000;
+    border-radius: 5px;
+    padding: 5px;
+    width: 162px;
+}
+
+.member_regi_submit input:hover {
+    cursor: pointer;
+}
+
+/* エラーメッセージ */
+.indi {
+    color: red;
+    margin-left: 40%;
+}
+
+.indi_sub {
+    margin-left: 20%;
+}
+
+.name_indi {
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+}
+
+/* 会員登録確認画面 */
+.member_regi_back_btn{
+    font-size: 25px;
+    color: #ff8000;
+    background-color: white;
+    border-radius: 5px;
+    padding: 5px;
+    width: 162px;
+}
