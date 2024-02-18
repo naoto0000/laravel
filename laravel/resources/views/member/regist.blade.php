@@ -112,6 +112,9 @@
                     <div class="regi_btn">
                         <input type="submit" name="" value="確認画面へ" class="member_regi_btn">
                     </div>
+                    <div class="member_confirm_btn">
+                        <a href="{{ url('/top_show') }}" class="login_submit login_back_submit">トップに戻る</a>
+                    </div>
                 </div>
             </form>
         </div>

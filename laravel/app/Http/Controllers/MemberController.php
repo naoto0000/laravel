@@ -6,8 +6,11 @@ use Illuminate\Http\Request;
 
 use App\Models\Member;
 use App\Mail\CompleteMail;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class MemberController extends Controller
 {
@@ -19,7 +22,8 @@ class MemberController extends Controller
         return view('member.regist');
     }
 
-    public function showConfirm(Request $request){
+    public function showConfirm(Request $request)
+    {
 
         $first_name = $request->input('first_name');
         $second_name = $request->input('second_name');
@@ -37,7 +41,7 @@ class MemberController extends Controller
             'password' => 'required|between:8,20|alpha_num',
             'pass_conf' => 'required|between:8,20|same:password|alpha_num',
             'email' => 'required|email|max:200|unique:members',
-        ],[
+        ], [
             'first_name.required' => '※氏名(姓)を入力してください。',
             'first_name.max' => '※氏名(姓)は20文字以内で入力してください。',
             'second_name.required' => '※氏名(名)を入力してください。',
@@ -59,15 +63,14 @@ class MemberController extends Controller
             'email.unique' => '※入力されたメールアドレスは既に使用されています。',
         ]);
 
-        return view('member.confirm', compact('first_name', 'second_name', 'nickname', 'gender', 'password', 'pass_conf', 'email'));    
+        return view('member.confirm', compact('first_name', 'second_name', 'nickname', 'gender', 'password', 'pass_conf', 'email'));
     }
 
     public function showComplete(Request $request)
     {
-        if($request->input('back') == 'back'){
+        if ($request->input('back') == 'back') {
             return redirect('/member_regist')->withInput();
         }
-
 
         $member = new Member();
 
@@ -76,11 +79,11 @@ class MemberController extends Controller
             'name_mei' => $request->input('second_name'),
             'nickname' => $request->input('nickname'),
             'gender' => $request->input('gender'),
-            'password' => bcrypt($request->input('password')),
+            'password' => Hash::make($request->input('password')),
             'email' => $request->input('email'),
         ]);
 
-        $name = $request->input('first_name').$request->input('second_name');
+        $name = $request->input('first_name') . $request->input('second_name');
 
         try {
             // メール送信
@@ -88,14 +91,82 @@ class MemberController extends Controller
         } catch (\Exception $e) {
             // メール送信中に例外が発生した場合のエラーハンドリング
             Log::error('Failed to send email: ' . $e->getMessage());
-    
+
             // ユーザーにエラーメッセージを表示
             return redirect()->back()->with('error', 'メールの送信に失敗しました。');
-        }    
+        }
 
         $request->session()->regenerateToken();
 
         return view('member.complete');
     }
-    
+
+    // トップ画面に遷移
+    public function showTop()
+    {
+        return view('top', ['is_login' => false]);
+    }
+
+    // ログイン画面に遷移
+    public function showLogin()
+    {
+        return view('login');
+    }
+
+    // // ログイン機能実装
+    // public function login(Request $request)
+    // {
+    //     // $request->validate([
+    //     //     'email' => 'required|email',
+    //     //     'password' => 'required',
+    //     // ]);
+
+    //     $email = $request->input('login_id');
+    //     $password = $request->input('login_pass');
+
+
+    //     // ユーザーの認証
+    //     $member_mail = Member::where('email', $email)->first();
+
+    //     if ($member_mail === NULL) {
+    //         return back()->withErrors(['login' => '※メールアドレスまたはパスワードが正しくありません。']);
+    //     }
+
+    //     if (Hash::check($password, $member_mail->password)) {
+    //         // 認証成功時の処理
+    //         $request->session()->put('login', '1');
+    //         return redirect()->route('login_top');
+    //     }
+
+    //     // 認証失敗時の処理
+    //     return back()->withErrors(['login' => '※メールアドレスまたはパスワードが正しくありません。']);
+    // }
+
+    // ログイン画面からトップ画面に遷移
+    public function showLoginTop()
+    {
+        $is_login = Auth::check();
+        // ログインユーザーの情報を取得
+        $user = Auth::user();
+        return view('top', ['is_login' => $is_login, 'user' => $user]);
+    }
+
+    // ログイン画面からトップ画面に遷移
+    public function showLogout()
+    {
+        session()->put('login', '');
+        return view('top');
+    }
+
+    public function mailComplete()
+    {
+        return redirect()->route('show_mail_complete');
+    }
+
+    // パスワード再設定メール送信後、完了画面に遷移
+    public function showMailComplete()
+    {
+        return view('mail_complete');
+    }
+
 }

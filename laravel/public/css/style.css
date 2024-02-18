@@ -8,6 +8,10 @@ th {
     padding: 0;
 }
 
+a {
+    text-decoration: none;
+}
+
 body {
     background-color: rgb(254 255 224);
 }
@@ -141,5 +145,111 @@ body {
     background-color: white;
     border-radius: 5px;
     padding: 5px;
+}
+
+/* トップ画面 */
+header {
+    background-color: antiquewhite;
+    height: 80px;
+}
+
+.header_login_group {
+    padding-top: 15px;
+}
+
+.header_link {
+    color: white;
+    text-align: right;
+    align-items: center;
+    padding-right: 60px;
+}
+
+.btn {
+    padding: 10px 30px;
+    background: antiquewhite;
+    color: black;
+    margin-right: 15px;
+    border: solid 1px;
+}
+
+.btn:hover {
+    cursor: pointer;
+}
+
+/* ログイン画面 */
+.login_input {
+    padding-top: 30px;
+}
+
+.login_items {
+    display: flex;
+    margin-bottom: 20px;
+    height: 40px;
+}
+
+.login_btn {
+    text-align: center;
+    margin-top: 80px;
+}
+
+.login_items p {
+    width: 40%;
+}
+
+.login_items input {
+    width: 60%;
+}
+
+.pass_regi{
+    text-align: right;
+}
+
+.login_indi {
+    margin-left: 0;
+}
+
+.login_submit {
     width: 162px;
+    font-size: 25px;
+    border-radius: 5px;
+    padding: 5px;
+    color: white;
+    background-color: #ff8000;
+    margin-bottom: 20px;
+}
+
+.login_back_submit{
+    padding: 11px 7px;
+    border: solid 1px black;
+    color: #ff8000;
+    background-color:  white;
+}
+
+/* パスワード再設定画面 */
+.pass_reset_email {
+    width: 300px;
+    height: 20px;
+    margin-left: 20px;
+}
+
+.form-group.row {
+    display: flex;
+    margin-top: 50px;
+}
+
+.pass_reset_submit{
+    font-size: 25px;
+    border-radius: 5px;
+    padding: 5px;
+    color: white;
+    background-color: #ff8000;
+    margin-bottom: 20px;
+}
+
+.pass_reset_back_submit{
+    width: 238px;
+    padding: 11px 42px;
+    border: solid 1px black;
+    color: #ff8000;
+    background-color:  white;
 }
