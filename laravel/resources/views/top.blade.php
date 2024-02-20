@@ -18,14 +18,17 @@
         @endif
         <div class="header_link">
             @if ($is_login)
-            <div>
+            <div class="header_btn_login">
+                <div>
+                    <a href="{{ route('product_regist') }}" class="header_product_btn">新規商品登録</a>
+                </div>
+
                 <form action="{{ route('logout') }}" method="post">
                     @csrf
                     <button class="btn">
                         ログアウト
                     </button>
                 </form>
-                <!-- <a href="{{ route('logout') }}" class="btn">ログアウト</a> -->
             </div>
             @else
             <div class="header_login_group">
@@ -38,7 +41,6 @@
 
     <main>
         <div class="container">
-
         </div>
     </main>
 

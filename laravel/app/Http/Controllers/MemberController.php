@@ -113,35 +113,6 @@ class MemberController extends Controller
         return view('login');
     }
 
-    // // ログイン機能実装
-    // public function login(Request $request)
-    // {
-    //     // $request->validate([
-    //     //     'email' => 'required|email',
-    //     //     'password' => 'required',
-    //     // ]);
-
-    //     $email = $request->input('login_id');
-    //     $password = $request->input('login_pass');
-
-
-    //     // ユーザーの認証
-    //     $member_mail = Member::where('email', $email)->first();
-
-    //     if ($member_mail === NULL) {
-    //         return back()->withErrors(['login' => '※メールアドレスまたはパスワードが正しくありません。']);
-    //     }
-
-    //     if (Hash::check($password, $member_mail->password)) {
-    //         // 認証成功時の処理
-    //         $request->session()->put('login', '1');
-    //         return redirect()->route('login_top');
-    //     }
-
-    //     // 認証失敗時の処理
-    //     return back()->withErrors(['login' => '※メールアドレスまたはパスワードが正しくありません。']);
-    // }
-
     // ログイン画面からトップ画面に遷移
     public function showLoginTop()
     {

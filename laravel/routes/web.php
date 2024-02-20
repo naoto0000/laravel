@@ -29,16 +29,8 @@ Route::post('/member_complete', 'MemberController@showComplete')->name('member_c
 
 // トップ画面のルーティング
 Route::get('/top_show', 'MemberController@showTop')->name('top');
-
-// // ログイン画面のルーティング
-// Route::get('/login', 'MemberController@showLogin')->name('login_show');
-
-// // ログイン画面からトップ画面へのルーティング
-// Route::post('/top_login', 'MemberController@login')->name('login');
 Route::get('/top_login', 'MemberController@showLoginTop')->name('login_top');
 
-// // ログアウトのルーティング
-// Route::get('/top', 'MemberController@showLogout')->name('logout');
 
 // Authのルーティング
 Auth::routes();
@@ -48,3 +40,21 @@ Route::get('/home', 'HomeController@index')->name('home');
 // リンクメール送信画面へのルーティング
 Route::post('/mail_complete', 'MemberController@mailComplete')->name('mail_complete');
 Route::get('/mail_complete', 'MemberController@showMailComplete')->name('show_mail_complete');
+
+// 商品登録関連
+// ==========
+// 商品登録画面へ遷移
+Route::get('/product_regist', 'ProductController@showRegist')->name('product_regist');
+
+// 商品登録画面、カテゴリー選択処理
+Route::get('/getSubcategories', 'ProductController@getSubcategories')->name('getSubcategories');
+
+// 画像アップロード
+Route::post('/upload', 'ProductController@upload')->name('upload');
+
+// 商品登録確認のルーティング
+Route::post('/product_confirm', 'ProductController@showConfirm')->name('product_confirm');
+
+// 商品登録完了のルーティング
+Route::post('/product_complete', 'ProductController@showComplete')->name('product_complete');
+

@@ -164,6 +164,21 @@ header {
     padding-right: 60px;
 }
 
+.header_btn_login {
+    display: flex;
+    justify-content: end;
+}
+
+.header_product_btn{
+    padding: 10px 30px;
+    background: antiquewhite;
+    color: black;
+    margin-right: 15px;
+    border: solid 1px;
+    display: inline-block;
+    font-size: 14px;
+}
+
 .btn {
     padding: 10px 30px;
     background: antiquewhite;
@@ -252,4 +267,52 @@ header {
     border: solid 1px black;
     color: #ff8000;
     background-color:  white;
+}
+
+/* 商品登録画面 */
+.category_sub_title {
+    font-size: 20px;
+}
+
+.category_select {
+    height: 30px;
+    margin-right: 10px;
+}
+
+.sub_category_select{
+    height: 30px;
+}
+
+.input_photo{
+    margin-left: 150px;
+}
+
+.preview{
+    height: 200px;
+    width: 200px;
+    border: solid;
+}
+
+.photo_upload_btn{
+    margin-top: 15px;
+    height: 40px;
+    border: solid 3px #ff8000;
+    color: #ff8a17;
+    background: white;
+    border-radius: 5px ;
+    width: 100px;
+}
+
+.upload_group {
+    display: flex;
+    flex-direction: column;
+}
+
+.js-droparea{
+    margin-top: 20px;
+}
+
+.upload_img{
+    height: 200px;
+    width: 200px;
 }
