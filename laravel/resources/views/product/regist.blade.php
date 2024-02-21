@@ -24,7 +24,7 @@
                 <div class="item_group">
                     <div class="input_name">
                         <p class="sub_title sub_group category_sub_title">商品名</p>
-                        <input type="text" name="product_name" value="{{ old('product_name') }}">
+                        <input type="text" name="product_name" value="{{ session('product_name') }}">
                     </div>
                     <div class="name_indi">
                         @if ($errors->has('product_name'))
@@ -41,13 +41,13 @@
                         <select id="category" name="category" class="category_select">
                             <option value="">カテゴリを選択してください</option>
                             @foreach ($categories as $category)
-                            <option value="{{ $category->id }}" {{ old('category') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                            <option value="{{ $category->id }}" {{ session('category') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                             @endforeach
                         </select>
 
-                        <div id="subcategory-list">
-                            <!-- サブカテゴリーを表示する -->
-                        </div>
+                        <select name="subcategory" id="subcategory" class="sub_category_select" style="display: none;">
+                        </select>
+
                     </div>
                 </div>
                 <div class="name_indi">
@@ -70,15 +70,25 @@
                     <div class="input_photo">
                         <p class="sub_title sub_group category_sub_title">写真１</p>
                         <div class="upload_group">
+                            <!-- 戻ってきた際にセッションでデータ保持 -->
+                            @if(session('image1'))
                             <div id="preview1" class="preview">
-                                @if(old('image1'))
-                                <img src="{{ old('image1') }}" alt="Uploaded Image" class="upload_img">
-                                <input type="hidden" id="fileInput1" value="{{ old('image1') }}" class="fileInput" name="image1" accept="image/*">
-                                @endif
+                                <img src="{{ session('image1') }}" alt="Uploaded Image" class="upload_img">
                             </div>
-                            <input type="file" class="js-droparea" id="upload_file1" name="upload_file">
+                            <label class="photo_upload_btn">
+                                アップロード
+                                <input type="file" class="js-droparea" id="upload_file1" name="upload_file">
+                            </label>
+                            <input type="hidden" id="fileInput1" value="{{ session('image1') }}" class="fileInput" name="image1" accept="image/*">
+                            @else
+                            <div id="preview1" class="preview">
+                            </div>
+                            <label class="photo_upload_btn">
+                                アップロード
+                                <input type="file" class="js-droparea" id="upload_file1" name="upload_file">
+                            </label>
                             <input type="hidden" id="fileInput1" value="" class="fileInput" name="image1" accept="image/*">
-                            <button type="button" class="photo_upload_btn">アップロード</button>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -86,15 +96,24 @@
                     <div class="input_photo">
                         <p class="sub_title sub_group category_sub_title">写真2</p>
                         <div class="upload_group">
+                            @if(session('image2'))
                             <div id="preview2" class="preview">
-                                @if(old('image2'))
-                                <img src="{{ old('image2') }}" alt="Uploaded Image" class="upload_img">
-                                <input type="hidden" id="fileInput2" value="{{ old('image2') }}" class="fileInput" name="image2" accept="image/*">
-                                @endif
+                                <img src="{{ session('image2') }}" alt="Uploaded Image" class="upload_img">
                             </div>
-                            <input type="file" class="js-droparea" id="upload_file2" name="upload_file">
-                            <input type="hidden" id="image2" value="" name="image2">
-                            <button type="button" class="photo_upload_btn">アップロード</button>
+                            <label class="photo_upload_btn">
+                                アップロード
+                                <input type="file" class="js-droparea" id="upload_file2" name="upload_file">
+                            </label>
+                            <input type="hidden" id="fileInput2" value="{{ session('image2') }}" class="fileInput" name="image2" accept="image/*">
+                            @else
+                            <div id="preview2" class="preview">
+                            </div>
+                            <label class="photo_upload_btn">
+                                アップロード
+                                <input type="file" class="js-droparea" id="upload_file2" name="upload_file">
+                            </label>
+                            <input type="hidden" id="fileInput2" value="" class="fileInput" name="image2" accept="image/*">
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -102,15 +121,24 @@
                     <div class="input_photo">
                         <p class="sub_title sub_group category_sub_title">写真3</p>
                         <div class="upload_group">
+                            @if(session('image3'))
                             <div id="preview3" class="preview">
-                                @if(old('image3'))
-                                <img src="{{ old('image3') }}" alt="Uploaded Image" class="upload_img">
-                                <input type="hidden" id="fileInput3" value="{{ old('image3') }}" class="fileInput" name="image3" accept="image/*">
-                                @endif
+                                <img src="{{ session('image3') }}" alt="Uploaded Image" class="upload_img">
                             </div>
-                            <input type="file" class="js-droparea" id="upload_file3" name="upload_file">
-                            <input type="hidden" id="image3" value="" name="image3">
-                            <button type="button" class="photo_upload_btn">アップロード</button>
+                            <label class="photo_upload_btn">
+                                アップロード
+                                <input type="file" class="js-droparea" id="upload_file3" name="upload_file">
+                            </label>
+                            <input type="hidden" id="fileInput3" value="{{ session('image3') }}" class="fileInput" name="image3" accept="image/*">
+                            @else
+                            <div id="preview3" class="preview">
+                            </div>
+                            <label class="photo_upload_btn">
+                                アップロード
+                                <input type="file" class="js-droparea" id="upload_file3" name="upload_file">
+                            </label>
+                            <input type="hidden" id="fileInput3" value="" class="fileInput" name="image3" accept="image/*">
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -118,15 +146,25 @@
                     <div class="input_photo">
                         <p class="sub_title sub_group category_sub_title">写真4</p>
                         <div class="upload_group">
+                            @if(session('image4'))
                             <div id="preview4" class="preview">
-                                @if(old('image4'))
-                                <img src="{{ old('image4') }}" alt="Uploaded Image" class="upload_img">
-                                <input type="hidden" id="fileInput4" value="{{ old('image4') }}" class="fileInput" name="image4" accept="image/*">
-                                @endif
+                                <img src="{{ session('image4') }}" alt="Uploaded Image" class="upload_img">
                             </div>
-                            <input type="file" class="js-droparea" id="upload_file4" name="upload_file">
-                            <input type="hidden" id="image4" value="" name="image4">
-                            <button type="button" class="photo_upload_btn">アップロード</button>
+                            <label class="photo_upload_btn">
+                                アップロード
+                                <input type="file" class="js-droparea" id="upload_file4" name="upload_file">
+                            </label>
+                            <input type="hidden" id="fileInput4" value="{{ session('image4') }}" class="fileInput" name="image4" accept="image/*">
+                            @else
+                            <div id="preview4" class="preview">
+                            </div>
+                            <label class="photo_upload_btn">
+                                アップロード
+                                <input type="file" class="js-droparea" id="upload_file4" name="upload_file">
+                            </label>
+                            <input type="hidden" id="fileInput4" value="" class="fileInput" name="image4" accept="image/*">
+                            @endif
+
                         </div>
                     </div>
                 </div>
@@ -134,7 +172,7 @@
                 <div class="item_group">
                     <div class="input_name">
                         <p class="sub_title sub_group category_sub_title">商品説明</p>
-                        <textarea name="product_text" id="" cols="30" rows="10">{{ old('product_text') }}</textarea>
+                        <textarea name="product_text" id="" cols="30" rows="10">{{ session('product_text') }}</textarea>
                     </div>
                     <div class="name_indi">
                         @if ($errors->has('product_text'))
@@ -161,34 +199,58 @@
         // selectbox選択肢表示
         // =================
         $(document).ready(function() {
-            $('#category').change(function() {
-                var categoryId = $(this).val();
-
+            if ($('#category').val() !== '') {
+                // #category の値が空でない場合にのみ実行される処理
+                $('#subcategory').show();
                 $.ajax({
                     url: "{{ route('getSubcategories') }}",
                     method: 'get',
                     data: {
-                        category_id: categoryId
+                        category_id: $('#category').val()
                     },
                     success: function(response) {
-                        $('#subcategory-list').html(response);
+                        $('#subcategory').html(response.options);
+                        $('#subcategory').val(response.selected);
                     }
                 });
+            } else {
+                $('#subcategory').hide();
+            }
+
+            // #category の値が変更された時の処理
+            $('#category').change(function() {
+                var categoryId = $(this).val();
+                if (categoryId !== '') {
+                    $('#subcategory').show();
+                    $.ajax({
+                        url: "{{ route('getSubcategories') }}",
+                        method: 'get',
+                        data: {
+                            category_id: categoryId
+                        },
+                        success: function(response) {
+                            $('#subcategory').html(response.options);
+                            $('#subcategory').val(response.selected);
+                        }
+                    });
+                } else {
+                    $('#subcategory').hide();
+                }
             });
         });
 
         // 画像アップロード
         // =============
         $(document).ready(function() {
-            // アップロードボタンがクリックされたときの処理
-            $('.photo_upload_btn').click(function(event) {
-                event.preventDefault();
+            // ファイルが選択されたときの処理
+            $('.js-droparea').change(function() {
                 var uploadGroup = $(this).closest('.upload_group'); // 最も近い.upload_group要素を取得
-                var fileInput = uploadGroup.find('.js-droparea')[0]; // 最も近い.upload_group内の.js-droparea要素を取得
-                var file = fileInput.files[0];
+                var file = this.files[0];
 
+                console.log('ファイルサイズが大きすぎます:', file.size);
                 // ファイルサイズが10MB以下かどうかを検証
-                if (file.size > 10 * 1024 * 1024) { // 10MB以上の場合
+                const maxSize = 10 * 1024 * 1024; // 10MB
+                if (file.size > maxSize) {
                     alert('ファイルサイズは10MB以下にしてください。');
                     return;
                 }

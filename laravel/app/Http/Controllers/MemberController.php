@@ -116,6 +116,17 @@ class MemberController extends Controller
     // ログイン画面からトップ画面に遷移
     public function showLoginTop()
     {
+        // 商品登録のセッションをクリア
+        session()->forget('member_id');
+        session()->forget('product_name');
+        session()->forget('category');
+        session()->forget('subcategory');
+        session()->forget('image1');
+        session()->forget('image2');
+        session()->forget('image3');
+        session()->forget('image4');
+        session()->forget('product_text');
+
         $is_login = Auth::check();
         // ログインユーザーの情報を取得
         $user = Auth::user();

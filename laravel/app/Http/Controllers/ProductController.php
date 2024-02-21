@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
-use App\Product;
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\Subcategory;
+
 use App\Rules\CategoryValue;
 use App\Rules\SubCategoryValue;
-use App\Subcategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +18,11 @@ class ProductController extends Controller
     {
         $categories = Category::all();
         $user = Auth::user();
-        return view('product.regist', compact('categories', 'user'));
+        if ($user === null) {
+            return redirect()->route('top');
+        } else {
+            return view('product.regist', compact('categories', 'user'));
+        }
     }
 
     public function getSubcategories(Request $request)
@@ -28,8 +33,18 @@ class ProductController extends Controller
         // カテゴリーIDに関連するサブカテゴリーを取得
         $subcategories = Subcategory::where('product_category_id', $categoryId)->get();
 
-        // 取得したサブカテゴリーをビューに渡して、Ajaxリクエストに応答
-        return view('partials.subcategories', ['subcategories' => $subcategories]);
+        // サブカテゴリーの選択肢をHTML形式で返す
+        $options = '<option value="">サブカテゴリーを選択してください</option>';
+        foreach ($subcategories as $subcategory) {
+            $options .= '<option value="' . $subcategory->id . '"';
+            if (session('subcategory') == $subcategory->id) {
+                $options .= ' selected';
+            }
+            $options .= '>' . $subcategory->name . '</option>';
+        }
+
+        // サブカテゴリーの選択肢を設定する
+        return response()->json(['options' => $options, 'selected' => session('subcategory')]);        // // 取得したサブカテゴリーをビューに渡して、Ajaxリクエストに応答
     }
 
     // 画像アップロード
@@ -60,6 +75,18 @@ class ProductController extends Controller
         $image4 = $request->input('image4');
         $product_text = $request->input('product_text');
 
+        // リクエストデータをセッションに保存
+        $request->session()->put('member_id', $member_id);
+        $request->session()->put('product_name', $product_name);
+        $request->session()->put('category', $category);
+        $request->session()->put('subcategory', $subcategory);
+        $request->session()->put('image1', $image1);
+        $request->session()->put('image2', $image2);
+        $request->session()->put('image3', $image3);
+        $request->session()->put('image4', $image4);
+        $request->session()->put('product_text', $product_text);
+
+
         $request->validate([
             'product_name' => ['required', 'max:100'],
             'category' => ['required', 'numeric', new CategoryValue],
@@ -79,15 +106,15 @@ class ProductController extends Controller
         $categoryName = DB::table('product_categories')->where('id', $category)->value('name');
         $categoryNameSub = DB::table('product_subcategories')->where('id', $subcategory)->value('name');
 
-        return view('product.confirm', compact('member_id', 'product_name', 'category', 'subcategory', 'categoryName', 'categoryNameSub', 'image1', 'image2', 'image3', 'image4', 'product_text'));
+        $request->session()->put('categoryName', $categoryName);
+        $request->session()->put('categoryNameSub', $categoryNameSub);
+
+
+        return view('product.confirm');
     }
 
     public function showComplete(Request $request)
     {
-        if ($request->input('back') == 'back') {
-            return redirect('/product_regist')->withInput();
-        }
-
         $product = new Product();
 
         $product->create([
@@ -107,4 +134,16 @@ class ProductController extends Controller
         return redirect()->route('login_top');
     }
 
+    public function showList()
+    {
+        $is_login = Auth::check();
+        $products = DB::table('products')
+            ->join('product_categories', 'products.product_category_id', '=', 'product_categories.id')
+            ->join('product_subcategories', 'products.product_subcategory_id', '=', 'product_subcategories.id')
+            ->select('products.*', 'product_categories.name as category_name', 'product_subcategories.name as subcategory_name')
+            ->orderByDesc('products.id')
+            ->paginate(10);
+        $categories = Category::all();
+        return view('product.list', ['is_login' => $is_login, 'categories' => $categories, 'products' => $products]);
+    }
 }

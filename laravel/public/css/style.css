@@ -8,6 +8,10 @@ th {
     padding: 0;
 }
 
+li{
+    list-style: none;
+}
+
 a {
     text-decoration: none;
 }
@@ -170,10 +174,22 @@ header {
 }
 
 .header_product_btn{
-    padding: 10px 30px;
+    padding: 8px 30px;
     background: antiquewhite;
     color: black;
     margin-right: 15px;
+    margin-top: 7px;
+    border: solid 1px;
+    display: inline-block;
+    font-size: 14px;
+}
+
+.top_logout_btn{
+    padding: 8px 30px;
+    background: antiquewhite;
+    color: black;
+    margin-right: 15px;
+    margin-top: 7px;
     border: solid 1px;
     display: inline-block;
     font-size: 14px;
@@ -189,6 +205,15 @@ header {
 
 .btn:hover {
     cursor: pointer;
+}
+
+.top_btn_group {
+    display: flex;
+    justify-content: end;
+}
+
+.product_list_btn {
+    padding-top: 15px;
 }
 
 /* ログイン画面 */
@@ -294,13 +319,14 @@ header {
 }
 
 .photo_upload_btn{
-    margin-top: 15px;
-    height: 40px;
+    margin-top: 30px;
     border: solid 3px #ff8000;
     color: #ff8a17;
     background: white;
-    border-radius: 5px ;
+    border-radius: 5px;
     width: 100px;
+    padding: 10px;
+    margin-left: 40px 
 }
 
 .upload_group {
@@ -310,9 +336,116 @@ header {
 
 .js-droparea{
     margin-top: 20px;
+    display: none;
 }
 
 .upload_img{
     height: 200px;
     width: 200px;
+}
+
+.product_confirm_submit{
+    font-size: 25px;
+    color: white;
+    background-color: #ff8000;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.product_regi_back_btn{
+    font-size: 25px;
+    color: #ff8000;
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px 43px;
+    border: solid;
+}
+
+/* 商品一覧画面 */
+.header_h2{
+    margin: 15px 50px;
+}
+
+.product_list_header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.list_header_product_btn{
+    padding: 8px 30px;
+    background: antiquewhite;
+    color: black;
+    margin-right: 70px;
+    margin-top: 20px;
+    border: solid 1px;
+    display: inline-block;
+    font-size: 14px;
+}
+
+.product_search {
+    background-color: white;
+    border: solid;
+    padding: 30px;
+    margin-bottom: 100px;
+}
+
+.search_items {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.search_category {
+    display: flex;
+}
+
+.search_items p {
+    width: 20%;
+}
+
+.search_submit_btn{
+    text-align: right;
+    padding-right: 30px;
+}
+
+.list_items {
+    display: flex;
+    border-bottom: solid;
+    padding: 50px 10px;
+}
+
+.list_items:first-child{
+    border-top: solid;
+}
+
+.product_list_img {
+    width: 250px;
+    height: 200px;
+    margin-right: 50px;
+}
+
+.items_category {
+    margin-bottom: 30px;
+    background-color: white;
+    border: solid;
+    padding: 5px;
+}
+
+.list_back_btn{
+    margin-top: 80px;
+    text-align: center;
+}
+
+.list_back_btn a{
+    color: blue;
+}
+
+.pagination {
+    display: flex;
+    justify-content: end;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+.page-item{
+    margin: 0 5px;
 }

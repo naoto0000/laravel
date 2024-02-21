@@ -58,3 +58,5 @@ Route::post('/product_confirm', 'ProductController@showConfirm')->name('product_
 // 商品登録完了のルーティング
 Route::post('/product_complete', 'ProductController@showComplete')->name('product_complete');
 
+// 商品一覧画面への遷移
+Route::get('/product_list', 'ProductController@showList')->name('product_list');
