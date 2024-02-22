@@ -58,8 +58,13 @@
                 <div class="list_items">
                     <img src="{{ $product->image_1 }}" alt="商品画像" class="product_list_img">
                     <div class="item_contents_group">
-                        <div class="items_category">{{ $product->category_name }} > {{ $product->subcategory_name }}</div>
-                        <p>{{ $product->name }}</p>
+                        <div class="product_list_right">
+                            <div class="items_category">{{ $product->category_name }} > {{ $product->subcategory_name }}</div>
+                            <a href="{{ route('product_detail', ['id' => $product->id, 'page' => $products->currentPage()]) }}">{{ $product->name }}</a>
+                            <div class="detail_btn">
+                                <a href="{{ route('product_detail', ['id' => $product->id, 'page' => $products->currentPage()]) }}" class="product_detail_btn">詳細</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 @endforeach

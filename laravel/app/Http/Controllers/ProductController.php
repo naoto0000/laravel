@@ -8,6 +8,7 @@ use App\Models\Subcategory;
 
 use App\Rules\CategoryValue;
 use App\Rules\SubCategoryValue;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -219,5 +220,27 @@ class ProductController extends Controller
 
         $categories = Category::all();
         return view('product.list', compact('is_login', 'categories', 'products'));
+    }
+
+    // 商品詳細画面へ遷移
+    public function showDetail(Request $request)
+    {
+        $is_login = Auth::check();
+
+        // ルーティングからIDを取得
+        $id = $request->route('id');
+
+        $product = DB::table('products')
+            ->join('product_categories', 'products.product_category_id', '=', 'product_categories.id')
+            ->join('product_subcategories', 'products.product_subcategory_id', '=', 'product_subcategories.id')
+            ->select('products.*', 'product_categories.name as category_name', 'product_subcategories.name as subcategory_name')
+            ->where('products.id', $id)
+            ->first();
+
+        // 更新日時をフォーマット
+        $product->updated_at = Carbon::parse($product->updated_at)->format('Ymd');
+
+        // 商品情報を詳細ビューに渡して表示
+        return view('product.detail', compact('is_login', 'product', 'request'));
     }
 }

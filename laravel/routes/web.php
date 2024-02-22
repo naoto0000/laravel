@@ -63,3 +63,6 @@ Route::get('/product_list', 'ProductController@showList')->name('product_list');
 
 // 商品一覧画面(検索あり)への遷移
 Route::get('/product_search', 'ProductController@showSearch')->name('product_search');
+
+// 商品詳細画面への遷移
+Route::get('/product_detail/{id}', 'ProductController@showDetail')->name('product_detail');
