@@ -193,7 +193,6 @@ class ProductController extends Controller
         $request->session()->put('subcategory', $subcategory);
         $request->session()->put('product_search_freeword', $freeword);
 
-
         $query = DB::table('products')
             ->join('product_categories', 'products.product_category_id', '=', 'product_categories.id')
             ->join('product_subcategories', 'products.product_subcategory_id', '=', 'product_subcategories.id')
@@ -219,6 +218,7 @@ class ProductController extends Controller
         $products = $query->paginate(10);
 
         $categories = Category::all();
+        
         return view('product.list', compact('is_login', 'categories', 'products'));
     }
 
@@ -226,6 +226,13 @@ class ProductController extends Controller
     public function showDetail(Request $request)
     {
         $is_login = Auth::check();
+
+        $referer = $request->headers->get('referer');
+        if ($referer === url('/product_list')) {
+            $request->session()->put('referer_detail', 1);
+        } elseif ($referer === url('/product_search')) {
+            $request->session()->put('referer_detail', 2);
+        }
 
         // ルーティングからIDを取得
         $id = $request->route('id');
