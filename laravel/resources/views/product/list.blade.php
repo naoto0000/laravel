@@ -119,6 +119,7 @@
                     });
                 } else {
                     $('#subcategory').hide();
+                    $('#subcategory').val('');
                 }
             });
         });
