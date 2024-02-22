@@ -14,13 +14,23 @@ use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
-    public function showRegist()
+    public function showRegist(Request $request)
     {
         $categories = Category::all();
         $user = Auth::user();
         if ($user === null) {
             return redirect()->route('top');
         } else {
+
+            $referer = $request->headers->get('referer');
+            if ($referer === url('/product_list') || $referer === url('/product_search')) {
+                $request->session()->put('referer_page', 1);
+            } elseif ($referer === url('/top_login')) {
+                $request->session()->put('referer_page', 2);
+            } else {
+                $request->session()->put('referer_page', 2);
+            }
+
             return view('product.regist', compact('categories', 'user'));
         }
     }
@@ -131,12 +141,33 @@ class ProductController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect()->route('login_top');
+        return redirect()->route('product_list');
     }
 
+    // 一覧画面へ遷移
     public function showList()
     {
         $is_login = Auth::check();
+
+        // 商品登録のセッションをクリア
+        session()->forget('member_id');
+        session()->forget('product_name');
+        session()->forget('category');
+        session()->forget('subcategory');
+        session()->forget('image1');
+        session()->forget('image2');
+        session()->forget('image3');
+        session()->forget('image4');
+        session()->forget('product_text');
+
+        // 登録画面のリファラーをクリア
+        session()->forget('referer_page');
+
+        // 検索条件をクリア
+        session()->forget('category');
+        session()->forget('subcategory');
+        session()->forget('product_search_freeword');
+
         $products = DB::table('products')
             ->join('product_categories', 'products.product_category_id', '=', 'product_categories.id')
             ->join('product_subcategories', 'products.product_subcategory_id', '=', 'product_subcategories.id')
@@ -145,5 +176,48 @@ class ProductController extends Controller
             ->paginate(10);
         $categories = Category::all();
         return view('product.list', ['is_login' => $is_login, 'categories' => $categories, 'products' => $products]);
+    }
+
+    // 検索機能
+    public function showSearch(Request $request)
+    {
+        $is_login = Auth::check();
+
+        // フォームから送信された検索クエリを取得
+        $category = $request->input('category');
+        $subcategory = $request->input('subcategory');
+        $freeword = $request->input('product_search_freeword');
+
+        $request->session()->put('category', $category);
+        $request->session()->put('subcategory', $subcategory);
+        $request->session()->put('product_search_freeword', $freeword);
+
+
+        $query = DB::table('products')
+            ->join('product_categories', 'products.product_category_id', '=', 'product_categories.id')
+            ->join('product_subcategories', 'products.product_subcategory_id', '=', 'product_subcategories.id')
+            ->select('products.*', 'product_categories.name as category_name', 'product_subcategories.name as subcategory_name')
+            ->orderByDesc('products.id');
+
+        // AND検索（フリーワード部分のみOR検索）
+        $query->where(function ($query) use ($category, $subcategory, $freeword) {
+            if ($category) {
+                $query->where('products.product_category_id', $category);
+            }
+            if ($subcategory) {
+                $query->where('products.product_subcategory_id', $subcategory);
+            }
+            if ($freeword) {
+                $query->where(function ($query) use ($freeword) {
+                    $query->where('products.name', 'like', '%' . $freeword . '%')
+                        ->orWhere('products.product_content', 'like', '%' . $freeword . '%');
+                });
+            }
+        });
+        // 商品をページネーションして取得
+        $products = $query->paginate(10);
+
+        $categories = Category::all();
+        return view('product.list', compact('is_login', 'categories', 'products'));
     }
 }

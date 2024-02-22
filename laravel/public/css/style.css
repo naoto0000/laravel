@@ -446,6 +446,17 @@ header {
     margin-right: 20px;
 }
 
-.page-item{
-    margin: 0 5px;
+.pagination li {
+    padding: 0 5px;
+    border: solid 1px;
+}
+
+li.disabled {
+    border: none;
+}
+
+li.active {
+    color: white;
+    background-color: gray;
+    border: solid 1px black;
 }

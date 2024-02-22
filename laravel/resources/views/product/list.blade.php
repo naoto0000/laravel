@@ -28,28 +28,29 @@
     <main>
         <div class="container">
             <div class="product_search">
-                <div class="search_items">
-                    <p>カテゴリ</p>
-                    <div class="search_category">
-                        <select id="category" name="category" class="category_select">
-                            <option value="">カテゴリを選択してください</option>
-                            @foreach ($categories as $category)
-                            <option value="{{ $category->id }}" {{ old('category') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
-                            @endforeach
-                        </select>
+                <form action="{{ route('product_search') }}" method="get">
+                    <div class="search_items">
+                        <p>カテゴリ</p>
+                        <div class="search_category">
+                            <select id="category" name="category" class="category_select">
+                                <option value="">カテゴリを選択してください</option>
+                                @foreach ($categories as $category)
+                                <option value="{{ $category->id }}" {{ session('category') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                                @endforeach
+                            </select>
 
-                        <div id="subcategory-list">
-                            <!-- サブカテゴリーを表示する -->
+                            <select name="subcategory" id="subcategory" class="sub_category_select" style="display: none;">
+                            </select>
                         </div>
                     </div>
-                </div>
-                <div class="search_items">
-                    <p>フリーワード</p>
-                    <input type="text" name="product_search_freeword">
-                </div>
-                <div class="search_submit_btn">
-                    <input type="submit" value="商品検索">
-                </div>
+                    <div class="search_items">
+                        <p>フリーワード</p>
+                        <input type="text" name="product_search_freeword" value="{{ session('product_search_freeword') }}">
+                    </div>
+                    <div class="search_submit_btn">
+                        <input type="submit" value="商品検索">
+                    </div>
+                </form>
             </div>
 
             <div>
@@ -65,7 +66,7 @@
             </div>
 
             <!-- ページネーションリンクを表示 -->
-            {{ $products->onEachSide(0)->links() }}
+            {{ $products->appends(request()->query())->onEachSide(0)->links() }}
 
             <div class="list_back_btn">
                 <a href="{{ route('login_top') }}" class="login_submit login_back_submit">トップに戻る</a>
@@ -77,19 +78,43 @@
         // selectbox選択肢表示
         // =================
         $(document).ready(function() {
-            $('#category').change(function() {
-                var categoryId = $(this).val();
-
+            if ($('#category').val() !== '') {
+                // #category の値が空でない場合にのみ実行される処理
+                $('#subcategory').show();
                 $.ajax({
                     url: "{{ route('getSubcategories') }}",
                     method: 'get',
                     data: {
-                        category_id: categoryId
+                        category_id: $('#category').val()
                     },
                     success: function(response) {
-                        $('#subcategory-list').html(response);
+                        $('#subcategory').html(response.options);
+                        $('#subcategory').val(response.selected);
                     }
                 });
+            } else {
+                $('#subcategory').hide();
+            }
+
+            // #category の値が変更された時の処理
+            $('#category').change(function() {
+                var categoryId = $(this).val();
+                if (categoryId !== '') {
+                    $('#subcategory').show();
+                    $.ajax({
+                        url: "{{ route('getSubcategories') }}",
+                        method: 'get',
+                        data: {
+                            category_id: categoryId
+                        },
+                        success: function(response) {
+                            $('#subcategory').html(response.options);
+                            $('#subcategory').val(response.selected);
+                        }
+                    });
+                } else {
+                    $('#subcategory').hide();
+                }
             });
         });
     </script>

@@ -188,7 +188,11 @@
                         <input type="submit" name="" value="確認画面へ" class="member_regi_btn">
                     </div>
                     <div class="member_confirm_btn">
+                        @if (session('referer_page') === 1)
+                        <a href="{{ route('product_list') }}" class="login_submit login_back_submit">商品一覧に戻る</a>
+                        @else
                         <a href="{{ route('login_top') }}" class="login_submit login_back_submit">トップに戻る</a>
+                        @endif
                     </div>
                 </div>
             </form>
