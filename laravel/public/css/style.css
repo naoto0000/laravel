@@ -669,3 +669,20 @@ li.active {
 .review_confirm_titles{
     width: 30%;
 }
+
+/* マイページ関連 */
+.mypage_header_link {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 50px;
+    padding-top: 20px;
+}
+
+.mypage_header {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.mypage_title {
+    width: 40%;
+}

@@ -80,3 +80,8 @@ Route::post('/review_confirm/{id}', 'ReviewController@showConfirm')->name('revie
 
 // レビュー登録確認のルーティング
 Route::post('/review_complete/{id}', 'ReviewController@showComplete')->name('review_complete');
+
+// マイページ関連
+// ===========
+// マイページへの遷移
+Route::get('/mypage', 'MyPageController@showMypage')->name('mypage');

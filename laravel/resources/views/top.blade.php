@@ -27,6 +27,10 @@
                         <a href="{{ route('product_regist') }}" class="header_product_btn">新規商品登録</a>
                     </div>
 
+                    <div>
+                        <a href="{{ route('mypage') }}" class="header_product_btn">マイページ</a>
+                    </div>
+
                     <form action="{{ route('logout') }}" method="post">
                         @csrf
                         <button class="top_logout_btn">
