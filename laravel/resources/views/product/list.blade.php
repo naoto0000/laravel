@@ -61,6 +61,12 @@
                         <div class="product_list_right">
                             <div class="items_category">{{ $product->category_name }} > {{ $product->subcategory_name }}</div>
                             <a href="{{ route('product_detail', ['id' => $product->id, 'page' => $products->currentPage()]) }}">{{ $product->name }}</a>
+                            <div class="list_item_evaluation">
+                                <p class="list_star">
+                                    @for ($i = 0; $i < ceil($product->average_evaluation); $i++) ★ @endfor 
+                                </p>
+                                <p class="product_list_review">{{ ceil($product->average_evaluation) }}</p>
+                            </div>
                             <div class="detail_btn">
                                 <a href="{{ route('product_detail', ['id' => $product->id, 'page' => $products->currentPage()]) }}" class="product_detail_btn">詳細</a>
                             </div>

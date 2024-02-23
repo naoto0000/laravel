@@ -430,6 +430,19 @@ header {
     padding: 5px;
 }
 
+.list_item_evaluation {
+    display: flex;
+}
+
+.list_star {
+    margin-top: 30px;
+    margin-right: 10px;
+}
+
+.product_list_review {
+    margin-top: 30px;
+}
+
 .list_back_btn {
     margin-top: 80px;
     text-align: center;
@@ -515,4 +528,144 @@ li.active {
     color: white;
     background-color: blue;
     border-radius: 5px;
+}
+
+.detail_review {
+    margin-bottom: 80px;
+}
+
+.detail_review_contents {
+    display: flex;
+}
+
+.review_average {
+    display: flex;
+    margin-top: 30px;
+    margin-left: 40px;
+}
+
+.review_average p{
+    margin-right: 20px;
+}
+
+.total_review {
+    margin-top: 30px;
+}
+
+.review_regist_btn_group {
+    text-align: end;
+    margin: 50px 0;
+}
+
+.review_regist_btn {
+    border: solid 1px black;
+    padding: 10px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+/* レビュー一覧 */
+.product_view {
+    display: flex;
+    margin-bottom: 50px;
+}
+
+.product_view_text {
+    margin-left: 50px;
+    margin-top: 30px;
+}
+
+.product_view_text p{
+    margin-bottom: 20px;
+}
+
+.review_img {
+    width: 230px;
+    height: 200px;
+}
+
+.review_item {
+    display: flex;
+    margin: 20px;
+}
+
+.review_items {
+    border-bottom: solid 1px black;
+}
+
+.review_items:first-child {
+    border-top: solid 1px black;
+}
+
+.review_item_comment {
+    margin-top: 20px;
+    margin-left: 40px;
+}
+
+.detail_list_back {
+    text-align: center;
+    margin-top: 70px;
+}
+
+.detail_list_back_btn{
+    font-size: 22px;
+    padding: 10px;
+    border: solid 1px black;
+    background-color: blue;
+    color: white;
+    border-radius: 5px;
+}
+
+/* レビュー登録画面 */
+.review_regist_form {
+    border-top: solid 1px black;
+    padding-top: 50px;
+    /* margin-bottom: 30px; */
+}
+
+.review_resist_form_items {
+    margin-bottom: 40px;
+}
+
+.review_input_group {
+    display: flex;
+}
+
+.review_resist_form_items p{
+    width: 20%;
+}
+
+.review_submit {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.review_subimt_btn {
+    padding: 7px;
+    font-size: 20px;
+    color: white;
+    background-color: blue;
+    border-radius: 5px;
+}
+
+.detail_back_submit {
+    text-align: center;
+}
+
+.review_submit_back_btn {
+    font-size: 22px;
+    padding: 10px;
+    border: solid 1px black;
+    background-color: white;
+    border-radius: 5px;
+}
+
+/* レビュー確認画面 */
+.review_confirm_items {
+    display: flex;
+    margin-bottom: 50px;
+}
+
+.review_confirm_titles{
+    width: 30%;
 }

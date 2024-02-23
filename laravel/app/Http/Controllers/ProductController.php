@@ -169,12 +169,32 @@ class ProductController extends Controller
         session()->forget('subcategory');
         session()->forget('product_search_freeword');
 
-        $products = DB::table('products')
+        // 商品情報の取得クエリ
+        $productsQuery = DB::table('products')
             ->join('product_categories', 'products.product_category_id', '=', 'product_categories.id')
             ->join('product_subcategories', 'products.product_subcategory_id', '=', 'product_subcategories.id')
-            ->select('products.*', 'product_categories.name as category_name', 'product_subcategories.name as subcategory_name')
+            ->select('products.*', 'product_categories.name as category_name', 'product_subcategories.name as subcategory_name');
+
+        // 商品に紐づくレビュー情報の取得クエリ
+        $reviewsQuery = DB::table('reviews')
+            ->select('product_id', DB::raw('AVG(evaluation) as average_evaluation'))
+            ->groupBy('product_id');
+
+        // レビュー情報を商品情報に結合
+        $products = $productsQuery
+            ->leftJoinSub($reviewsQuery, 'reviews', function ($join) {
+                $join->on('products.id', '=', 'reviews.product_id');
+            })
+            ->select(
+                'products.*',
+                'product_categories.name as category_name',
+                'product_subcategories.name as subcategory_name',
+                'reviews.average_evaluation'
+            )
             ->orderByDesc('products.id')
             ->paginate(10);
+
+
         $categories = Category::all();
         return view('product.list', ['is_login' => $is_login, 'categories' => $categories, 'products' => $products]);
     }
@@ -218,13 +238,14 @@ class ProductController extends Controller
         $products = $query->paginate(10);
 
         $categories = Category::all();
-        
+
         return view('product.list', compact('is_login', 'categories', 'products'));
     }
 
     // 商品詳細画面へ遷移
     public function showDetail(Request $request)
     {
+
         $is_login = Auth::check();
 
         $referer = $request->headers->get('referer');
@@ -247,7 +268,18 @@ class ProductController extends Controller
         // 更新日時をフォーマット
         $product->updated_at = Carbon::parse($product->updated_at)->format('Ymd');
 
+        // レビューの総合評価取得
+        $average = DB::table('reviews')
+            ->where('product_id', $id)
+            ->avg('evaluation');
+
+        $average = ceil($average);
+
+        // レビュー登録のセッションをクリア
+        session()->forget('evaluation');
+        session()->forget('review_comment');
+
         // 商品情報を詳細ビューに渡して表示
-        return view('product.detail', compact('is_login', 'product', 'request'));
+        return view('product.detail', compact('is_login', 'product', 'request', 'average'));
     }
 }

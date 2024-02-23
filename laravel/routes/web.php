@@ -66,3 +66,17 @@ Route::get('/product_search', 'ProductController@showSearch')->name('product_sea
 
 // 商品詳細画面への遷移
 Route::get('/product_detail/{id}', 'ProductController@showDetail')->name('product_detail');
+
+// レビュー関連
+// ==========
+// レビュー一覧画面への遷移
+Route::get('/review_list/{id}', 'ReviewController@showList')->name('review_list');
+
+// レビュー一覧画面への遷移
+Route::get('/review_regist/{id}', 'ReviewController@showRegist')->name('review_regist');
+
+// レビュー登録確認のルーティング
+Route::post('/review_confirm/{id}', 'ReviewController@showConfirm')->name('review_confirm');
+
+// レビュー登録確認のルーティング
+Route::post('/review_complete/{id}', 'ReviewController@showComplete')->name('review_complete');
