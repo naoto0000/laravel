@@ -64,6 +64,9 @@
                     <p class="confirm_item_contents">{{ $user->email }}</p>
                 </div>
             </div>
+            <div class="mypage_withdraw">
+                <a href="{{ route('mypage_withdraw') }}" class="mypage_withdraw_btn">退会</a>
+            </div>
         </div>
     </main>
 

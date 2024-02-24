@@ -686,3 +686,26 @@ li.active {
 .mypage_title {
     width: 40%;
 }
+
+.mypage_withdraw {
+    text-align: center;
+    margin-top: 100px;
+}
+
+.mypage_withdraw_btn {
+    padding: 10px 20px;
+    border: solid 1px black;
+    background-color: white;
+    border-radius: 5px;
+    font-size: 25px;
+}
+
+/* 退会画面 */
+.withdraw_text{
+    text-align: center;
+}
+
+.withdraw_submit_btn{
+    color: white;
+    background-color: blue;
+}

@@ -85,3 +85,9 @@ Route::post('/review_complete/{id}', 'ReviewController@showComplete')->name('rev
 // ===========
 // マイページへの遷移
 Route::get('/mypage', 'MyPageController@showMypage')->name('mypage');
+
+// 退会画面への遷移
+Route::get('/mypage_withdraw', 'MyPageController@showWithdraw')->name('mypage_withdraw');
+
+// 退会処理
+Route::post('/member_withdraw', 'MyPageController@memberWithdraw')->name('member_withdraw');

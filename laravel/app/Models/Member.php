@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use App\Notifications\ResetPasswordNotification;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class Member extends Authenticatable
 {
     use Notifiable;
+    use SoftDeletes;
     //テーブル名
     protected $table = 'members';
 
