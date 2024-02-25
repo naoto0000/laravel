@@ -91,3 +91,30 @@ Route::get('/mypage_withdraw', 'MyPageController@showWithdraw')->name('mypage_wi
 
 // 退会処理
 Route::post('/member_withdraw', 'MyPageController@memberWithdraw')->name('member_withdraw');
+
+// 会員情報変更画面への遷移
+Route::get('/mypage_member_edit', 'MyPageController@memberEdit')->name('mypage_member_edit');
+
+// 会員情報変更確認画面への遷移
+Route::post('/mypage_member_confirm', 'MyPageController@memberEditConfirm')->name('mypage_member_edit_confirm');
+
+// 会員情報変更登録処理
+Route::post('/mypage_member_complete', 'MyPageController@memberEditComplete')->name('mypage_member_edit_complete');
+
+// パスワード変更画面への遷移
+Route::get('/mypage_password_edit', 'MyPageController@passwordEdit')->name('mypage_password_edit');
+
+// パスワード変更処理
+Route::post('/mypage_password_edit', 'MyPageController@passwordEditComplete')->name('mypage_password_complete');
+
+// メールアドレス変更画面への遷移
+Route::get('/mypage_mail_edit', 'MyPageController@mailEdit')->name('mypage_mail_edit');
+
+// メールアドレス変更メール送信処理
+Route::post('/mypage_mail_edit', 'MyPageController@mailEditAuth')->name('mypage_mail_edit_auth');
+
+// メールアドレス変更メール送信後、認証画面への遷移
+Route::get('/mypage_mail_edit_complete', 'MyPageController@showMailEditAuth')->name('show_mail_edit_auth');
+
+// メールアドレス認証確認後、マイページへの遷移
+Route::post('/mypage_mail_edit_complete', 'MyPageController@mailEditAuthComplete')->name('mypage_mail_edit_auth_complete');

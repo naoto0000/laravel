@@ -687,6 +687,19 @@ li.active {
     width: 40%;
 }
 
+.mypage_link {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.mypage_link_btn {
+    border: solid 1px black;
+    padding: 10px;
+    color: white;
+    background-color: blue;
+    border-radius: 5px;
+}
+
 .mypage_withdraw {
     text-align: center;
     margin-top: 100px;
@@ -708,4 +721,23 @@ li.active {
 .withdraw_submit_btn{
     color: white;
     background-color: blue;
+}
+
+/* マイページ各編集画面 */
+.mypage_edit_title {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.mypage_edit_btn{
+    text-align: center;
+    margin-top: 30px;
+}
+
+.mypage_mail_submit {
+    font-size: 25px;
+    padding: 5px 30px;
+    color: white;
+    background-color: rgb(255, 166, 0);
+    border-radius: 5px;
 }

@@ -51,11 +51,19 @@
                 </div>
             </div>
 
+            <div class="mypage_link">
+                <a href="{{ route('mypage_member_edit') }}" class="mypage_link_btn">会員情報変更</a>
+            </div>
+
             <div class="item_group">
                 <div class="input_items">
                     <p class="sub_title mypage_title">パスワード</p>
                     <p class="confirm_item_contents">セキュリティのため非表示</p>
                 </div>
+            </div>
+
+            <div class="mypage_link">
+                <a href="{{ route('mypage_password_edit') }}" class="mypage_link_btn">パスワード変更</a>
             </div>
 
             <div class="item_group">
@@ -64,6 +72,11 @@
                     <p class="confirm_item_contents">{{ $user->email }}</p>
                 </div>
             </div>
+
+            <div class="mypage_link">
+                <a href="{{ route('mypage_mail_edit') }}" class="mypage_link_btn">メールアドレス変更</a>
+            </div>
+
             <div class="mypage_withdraw">
                 <a href="{{ route('mypage_withdraw') }}" class="mypage_withdraw_btn">退会</a>
             </div>
