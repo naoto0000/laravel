@@ -77,6 +77,10 @@
                 <a href="{{ route('mypage_mail_edit') }}" class="mypage_link_btn">メールアドレス変更</a>
             </div>
 
+            <div class="mypage_link">
+                <a href="{{ route('mypage_review') }}" class="mypage_link_btn">商品レビュー管理</a>
+            </div>
+
             <div class="mypage_withdraw">
                 <a href="{{ route('mypage_withdraw') }}" class="mypage_withdraw_btn">退会</a>
             </div>

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Mail\AuthMail;
 use App\Models\Member;
+use App\Models\Product;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -269,5 +271,158 @@ class MyPageController extends Controller
         $member->save();
 
         return redirect()->route('mypage');
+    }
+
+    // 商品レビュー管理画面に遷移
+    public function mypageReview(Request $request)
+    {
+        $is_login = Auth::check();
+
+        if ($is_login === false) {
+            return redirect()->route('top');
+        }
+
+        // レビュー編集のセッションをクリア
+        session()->forget('evaluation');
+        session()->forget('review_comment');
+
+        // ログインユーザーの情報を取得
+        $user = Auth::user();
+
+        $id = $user->id;
+
+        $reviews = Review::join('members', 'reviews.member_id', '=', 'members.id')
+            ->join('products', 'reviews.product_id', '=', 'products.id')
+            ->join('product_categories', 'products.product_category_id', '=', 'product_categories.id')
+            ->join('product_subcategories', 'products.product_subcategory_id', '=', 'product_subcategories.id')
+            ->where('members.id', $id)
+            ->whereColumn('products.id', 'reviews.product_id')
+            ->orderBy('reviews.id', 'desc') // reviews.idの降順
+            ->select(
+                'reviews.*',
+                'products.name as product_name',
+                'products.image_1 as product_image',
+                'product_categories.name as category_name',
+                'product_subcategories.name as subcategory_name'
+            )
+            ->paginate(5);
+
+        return view('mypage.review_list', compact('reviews'));
+    }
+
+    // 商品レビュー編集画面に遷移
+    public function mypageReviewEdit(Request $request)
+    {
+        $is_login = Auth::check();
+
+        if ($is_login === false) {
+            return redirect()->route('top');
+        }
+
+        // ルーティングからIDを取得
+        $id = $request->route('id');
+
+        $product_id = Review::where('id', $id)->value('product_id');
+
+        $average = Review::where('product_id', $product_id)->avg('evaluation');
+        $average = ceil($average);
+
+        $product = Product::where('id', $product_id)->first();
+        $review = Review::where('id', $id)->first();
+
+        return view('mypage.review_edit', compact('product', 'average', 'review', 'request'));
+    }
+
+    // 商品レビュー編集確認画面に遷移
+    public function mypageReviewConfirm(Request $request)
+    {
+        // ルーティングからIDを取得
+        $id = $request->route('id');
+
+        $product_id = Review::where('id', $id)->value('product_id');
+
+        $average = Review::where('product_id', $product_id)->avg('evaluation');
+        $average = ceil($average);
+
+        $product = Product::where('id', $product_id)->first();
+        $review = Review::where('id', $id)->first();
+
+        $evaluation = $request->input('evaluation');
+        $review_comment = $request->input('review_comment');
+
+        // リクエストデータをセッションに保存
+        $request->session()->put('evaluation', $evaluation);
+        $request->session()->put('review_comment', $review_comment);
+
+        $request->validate([
+            'evaluation' => ['required', 'numeric', 'between:1,5'],
+            'review_comment' => ['required', 'max:500'],
+        ], [
+            'evaluation.required' => '※商品評価を入力してください。',
+            'evaluation.numeric' => '※値を入力してください。',
+            'evaluation.between' => '※値は1~5で入力してください。',
+            'review_comment.required' => '※商品コメントを入力してください。',
+            'review_comment.max' => '※商品コメントは500文字以内で入力してください。',
+        ]);
+
+        return view('mypage.review_confirm', compact('product', 'average', 'review', 'request'));
+    }
+
+    // 商品レビュー編集処理後、商品レビュー管理画面に遷移
+    public function mypageReviewComplete(Request $request)
+    {
+        // ルーティングからIDを取得
+        $id = $request->route('id');
+
+        $page = $request->query('page');
+
+        $evaluation = $request->input('evaluation');
+        $review_comment = $request->input('review_comment');
+
+        // レビューモデルを取得して更新
+        $review = Review::findOrFail($id);
+        $review->evaluation = $evaluation;
+        $review->comment = $review_comment;
+        $review->save();
+
+        return redirect()->route('mypage_review', ['page' => $page]);
+    }
+
+    // 商品レビュー削除画面に遷移
+    public function mypageReviewWithdraw(Request $request)
+    {
+        $is_login = Auth::check();
+
+        if ($is_login === false) {
+            return redirect()->route('top');
+        }
+
+        // ルーティングからIDを取得
+        $id = $request->route('id');
+
+        $product_id = Review::where('id', $id)->value('product_id');
+
+        $average = Review::where('product_id', $product_id)->avg('evaluation');
+        $average = ceil($average);
+
+        $product = Product::where('id', $product_id)->first();
+        $review = Review::where('id', $id)->first();
+
+        return view('mypage.review_withdraw', compact('product', 'average', 'review', 'request'));
+    }
+
+    // 商品レビュー編集処理後、商品レビュー管理画面に遷移
+    public function mypageReviewWithdrawComplete(Request $request)
+    {
+        // ルーティングからIDを取得
+        $id = $request->route('id');
+
+        // レビューモデルを取得して削除
+        $review = Review::where('id', $id)->first();
+        if ($review) {
+            $review->delete();
+        }
+
+        return redirect()->route('mypage_review');
     }
 }

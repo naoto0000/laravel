@@ -741,3 +741,22 @@ li.active {
     background-color: rgb(255, 166, 0);
     border-radius: 5px;
 }
+
+/* マイページ、レビュー管理画面 */
+.mypage_review_btn_group {
+    margin-top: 15px;
+}
+
+.mypage_product_list_right {
+    width: 250px;
+}
+
+.mypage_review_btn {
+    border: solid 1px black;
+    padding: 5px;
+    font-size: 16px;
+    color: white;
+    background-color: blue;
+    border-radius: 5px;
+    margin-right: 10px;
+}

@@ -72,13 +72,13 @@ Route::get('/product_detail/{id}', 'ProductController@showDetail')->name('produc
 // レビュー一覧画面への遷移
 Route::get('/review_list/{id}', 'ReviewController@showList')->name('review_list');
 
-// レビュー一覧画面への遷移
+// レビュー登録画面への遷移
 Route::get('/review_regist/{id}', 'ReviewController@showRegist')->name('review_regist');
 
 // レビュー登録確認のルーティング
 Route::post('/review_confirm/{id}', 'ReviewController@showConfirm')->name('review_confirm');
 
-// レビュー登録確認のルーティング
+// レビュー登録完了のルーティング
 Route::post('/review_complete/{id}', 'ReviewController@showComplete')->name('review_complete');
 
 // マイページ関連
@@ -118,3 +118,21 @@ Route::get('/mypage_mail_edit_complete', 'MyPageController@showMailEditAuth')->n
 
 // メールアドレス認証確認後、マイページへの遷移
 Route::post('/mypage_mail_edit_complete', 'MyPageController@mailEditAuthComplete')->name('mypage_mail_edit_auth_complete');
+
+// 商品レビュー管理画面への遷移
+Route::get('/mypage_review', 'MyPageController@mypageReview')->name('mypage_review');
+
+// 商品レビュー編集画面への遷移
+Route::get('/mypage_review_edit/{id}', 'MyPageController@mypageReviewEdit')->name('mypage_review_edit');
+
+// 商品レビュー編集確認画面への遷移
+Route::post('/mypage_review_confirm/{id}', 'MyPageController@mypageReviewConfirm')->name('mypage_review_confirm');
+
+// 商品レビュー編集処理後、商品レビュー管理画面に遷移
+Route::post('/mypage_review_complete/{id}', 'MyPageController@mypageReviewComplete')->name('mypage_review_complete');
+
+// 商品レビュー削除画面への遷移
+Route::get('/mypage_review_withdraw/{id}', 'MyPageController@mypageReviewWithdraw')->name('mypage_review_withdraw');
+
+// 商品レビュー削除処理後、商品レビュー管理画面に遷移
+Route::post('/mypage_review_withdraw_complete/{id}', 'MyPageController@mypageReviewWithdrawComplete')->name('mypage_review_withdraw_complete');
