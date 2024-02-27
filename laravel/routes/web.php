@@ -136,3 +136,17 @@ Route::get('/mypage_review_withdraw/{id}', 'MyPageController@mypageReviewWithdra
 
 // 商品レビュー削除処理後、商品レビュー管理画面に遷移
 Route::post('/mypage_review_withdraw_complete/{id}', 'MyPageController@mypageReviewWithdrawComplete')->name('mypage_review_withdraw_complete');
+
+// 管理者画面関連のルーティング
+// =======================
+// 管理者ログイン画面への遷移
+Route::get('/admin_login', 'Admin\AdminLoginController@showLogin')->name('show_admin_login');
+
+// 管理者ログイン処理
+Route::post('/admin_login', 'Admin\AdminLoginController@adminLogin')->name('admin_login');
+
+// 管理者ログイン処理後、トップ画面に遷移
+Route::get('/admin_top', 'Admin\AdminLoginController@showTop')->name('admin_top');
+
+// 管理者ログアウト処理後、ログイン画面に遷移
+Route::get('/admin_logout', 'Admin\AdminLoginController@adminLogout')->name('admin_logout');

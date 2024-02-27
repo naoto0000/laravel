@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Administer;
 use App\Models\Member;
 
 return [
@@ -43,6 +44,12 @@ return [
             'provider' => 'members',
         ],
 
+        // 管理者ログイン用
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'administers',
+        ],
+
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
@@ -71,6 +78,12 @@ return [
         'members' => [
             'driver' => 'eloquent',
             'model' => Member::class,
+        ],
+
+        // 管理者ログイン用
+        'administers' => [
+            'driver' => 'eloquent',
+            'model' => Administer::class,
         ],
 
         // 'users' => [
