@@ -255,6 +255,10 @@ class ProductController extends Controller
             $request->session()->put('referer_detail', 2);
         }
 
+        // ページをセッションに保存
+        $page = $request->query('page');
+        $request->session()->put('page', $page);
+
         // ルーティングからIDを取得
         $id = $request->route('id');
 

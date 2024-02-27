@@ -60,22 +60,22 @@
                     </div>
                 </div>
 
-                <a href="{{ route('review_list', ['id' => $product->id, 'page' => $request->query('page')]) }}" class="review_link">>>レビューを見る</a>
+                <a href="{{ route('review_list', ['id' => $product->id]) }}" class="review_link">>>レビューを見る</a>
 
             </div>
 
             <!-- ログイン時のみレビュー登録に遷移可能 -->
             @if ($is_login)
             <div class="review_regist_btn_group">
-                <a href="{{ route('review_regist', ['id' => $product->id, 'page' => $request->query('page')]) }}" class="review_regist_btn">この商品についてのレビューを登録</a>
+                <a href="{{ route('review_regist', ['id' => $product->id]) }}" class="review_regist_btn">この商品についてのレビューを登録</a>
             </div>
             @endif
 
             <div class="detail_back">
                 @if (session('referer_detail') === 1)
-                <a href="{{ route('product_list', ['page' => $request->query('page')]) }}" class="detail_back_btn">商品一覧に戻る</a>
+                <a href="{{ route('product_list', ['page' => session('page')]) }}" class="detail_back_btn">商品一覧に戻る</a>
                 @else
-                <a href="{{ route('product_search', ['category' => session('category'), 'subcategory' => session('subcategory'), 'product_search_freeword' => session('product_search_freeword'), 'page' => $request->query('page')]) }}" class="detail_back_btn">商品一覧に戻る</a>
+                <a href="{{ route('product_search', ['category' => session('category'), 'subcategory' => session('subcategory'), 'product_search_freeword' => session('product_search_freeword'), 'page' => session('page')]) }}" class="detail_back_btn">商品一覧に戻る</a>
                 @endif
             </div>
         </div>

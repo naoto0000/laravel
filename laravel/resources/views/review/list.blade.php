@@ -71,7 +71,7 @@
             {{ $reviews->appends(request()->query())->onEachSide(0)->links() }}
 
             <div class="detail_list_back">
-                <a href="{{ route('product_detail', ['id' => $product->id, 'page' => $request->query('page')]) }}" class="detail_list_back_btn">商品詳細に戻る</a>
+                <a href="{{ route('product_detail', ['id' => $product->id, 'page' => session('page')]) }}" class="detail_list_back_btn">商品詳細に戻る</a>
             </div>
         </div>
     </main>

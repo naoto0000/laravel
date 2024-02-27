@@ -37,11 +37,11 @@
             </div>
 
             <div class="review_submit">
-                <a href="{{ route('review_list', ['id' => $product->id, 'page' => $request->query('page')]) }}" class="review_subimt_btn">商品レビュー一覧へ</a>
+                <a href="{{ route('review_list', ['id' => $product->id]) }}" class="review_subimt_btn">商品レビュー一覧へ</a>
             </div>
 
             <div class="detail_back_submit">
-                <a href="{{ route('product_detail', ['id' => $product->id, 'page' => $request->query('page')]) }}" class="review_submit_back_btn">商品詳細に戻る</a>
+                <a href="{{ route('product_detail', ['id' => $product->id, 'page' => session('page')]) }}" class="review_submit_back_btn">商品詳細に戻る</a>
             </div>
         </div>
     </main>

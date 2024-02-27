@@ -48,7 +48,7 @@
                 </div>
             </div>
 
-            <form action="{{ route('review_complete', ['id' => $product->id, 'page' => $request->query('page')]) }}" method="post" onsubmit="disableSubmitButton()">
+            <form action="{{ route('review_complete', ['id' => $product->id]) }}" method="post" onsubmit="disableSubmitButton()">
                 @csrf
                 <div class="review_regist_form">
 
@@ -69,7 +69,7 @@
             </form>
 
             <div class="detail_back_submit">
-                <a href="{{ route('review_regist', ['id' => $product->id, 'page' => $request->query('page')]) }}" class="review_submit_back_btn">前に戻る</a>
+                <a href="{{ route('review_regist', ['id' => $product->id]) }}" class="review_submit_back_btn">前に戻る</a>
             </div>
         </div>
     </main>
