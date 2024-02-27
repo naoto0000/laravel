@@ -37,6 +37,12 @@ class AdminLoginController extends Controller
     // トップ画面に遷移
     public function showTop()
     {
+        $is_login = Auth::check();
+
+        if ($is_login === false) {
+            return redirect()->route('show_admin_login');
+        }
+
         $admin = Auth::guard('admin')->user();
         return view('admin.top', ['admin' => $admin]);
     }
