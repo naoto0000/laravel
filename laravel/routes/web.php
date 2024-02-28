@@ -150,3 +150,9 @@ Route::get('/admin_top', 'Admin\AdminLoginController@showTop')->name('admin_top'
 
 // 管理者ログアウト処理後、ログイン画面に遷移
 Route::get('/admin_logout', 'Admin\AdminLoginController@adminLogout')->name('admin_logout');
+
+// 管理者会員一覧画面への遷移
+Route::get('/admin_member_list', 'Admin\AdminMemberController@showMemberList')->name('admin_member_list');
+
+// 検索処理、管理者会員一覧画面への遷移
+Route::get('/admin_member_list_search', 'Admin\AdminMemberController@showMemberSearch')->name('admin_member_list_search');

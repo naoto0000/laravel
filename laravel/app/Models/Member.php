@@ -6,11 +6,13 @@ use App\Notifications\ResetPasswordNotification;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Kyslik\ColumnSortable\Sortable;
 
 class Member extends Authenticatable
 {
     use Notifiable;
     use SoftDeletes;
+    use Sortable;
     //テーブル名
     protected $table = 'members';
 
@@ -33,4 +35,6 @@ class Member extends Authenticatable
     {
         $this->notify(new ResetPasswordNotification($token));
     }
+
+    public $sortable = ['id', 'created_at'];
 }

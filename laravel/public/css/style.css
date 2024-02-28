@@ -394,12 +394,12 @@ header {
     margin-bottom: 20px;
 }
 
-.search_category {
-    display: flex;
+.search_items_p {
+    width: 20%;
 }
 
-.search_items p {
-    width: 20%;
+.search_category {
+    display: flex;
 }
 
 .search_submit_btn {
@@ -805,3 +805,74 @@ li.active {
     padding: 7px;
     height: 25px;
 }
+
+.admin_top_btn_group {
+    text-align: center;
+    margin-top: 150px;
+}
+
+.admin_top_list_btn {
+    font-size: 25px;
+    padding: 15px 25px;
+    border: solid 1px black;
+    border-radius: 5px;
+    background-color: white;
+    color: blue;
+}
+
+.admin_search_item_p {
+    width: 100%;
+}
+
+td {
+    width: 200px;
+}
+
+.member_search {
+    margin: 0 20%;
+}
+
+.search_admin_group {
+    border: solid 1px black;
+    padding: 10px 70px;
+    width: 100%;
+}
+
+.admin_search_submit_btn {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.admin_search_submit {
+    padding: 10px;
+    font-size: 20px;
+    color: blue;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.admin_member_list_display {
+    margin-top: 100px;
+    border: solid 2px black;
+    border-spacing: 0;
+    width: 100%;
+}
+
+.admin_member_table_td {
+    text-align: center;
+    border: solid 0.3px black;
+    padding: 10px;
+}
+
+.admin_member_table_th {
+    text-align: center;
+    border: solid 0.3px black;
+    border-bottom: solid 2px black;
+    padding: 10px;
+}
+
+.admin_list_container {
+    margin: 50px 15%;
+}
+
+

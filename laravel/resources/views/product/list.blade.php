@@ -30,7 +30,7 @@
             <div class="product_search">
                 <form action="{{ route('product_search') }}" method="get">
                     <div class="search_items">
-                        <p>カテゴリ</p>
+                        <p class="search_items_p">カテゴリ</p>
                         <div class="search_category">
                             <select id="category" name="category" class="category_select">
                                 <option value="">カテゴリを選択してください</option>
@@ -44,7 +44,7 @@
                         </div>
                     </div>
                     <div class="search_items">
-                        <p>フリーワード</p>
+                        <p class="search_items_p">フリーワード</p>
                         <input type="text" name="product_search_freeword" value="{{ session('product_search_freeword') }}">
                     </div>
                     <div class="search_submit_btn">
