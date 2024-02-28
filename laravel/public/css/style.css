@@ -820,6 +820,8 @@ li.active {
     color: blue;
 }
 
+/* 会員一覧画面 */
+
 .admin_search_item_p {
     width: 100%;
 }
@@ -875,4 +877,25 @@ td {
     margin: 50px 15%;
 }
 
+.admin_list_regist {
+    margin-bottom: 50px;
+    margin-left: 230px;
+}
 
+.admin_list_regist_btn {
+    border: solid 1px black;
+    border-radius: 5px;
+    padding: 15px 25px;
+    color: white;
+    background-color: blue;
+}
+
+/* 会員登録画面 */
+.admin_member_regi_btn {
+    font-size: 25px;
+    color: blue;
+    background-color: white;
+    border-radius: 5px;
+    padding: 5px;
+    width: 162px;
+}

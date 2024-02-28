@@ -20,6 +20,9 @@
 
     <main>
         <div class="admin_list_container">
+            <div class="admin_list_regist">
+                <a href="{{ route('admin_member_regist') }}" class="admin_list_regist_btn">会員登録</a>
+            </div>
             <div class="member_search">
                 <form action="{{ route('admin_member_list_search') }}" method="get">
                     <table class="search_admin_group">
@@ -75,6 +78,7 @@
                             @sortablelink('created_at', '▼')
                             @endif
                         </th>
+                        <th class="admin_member_table_th">編集</th>
                     </tr>
                     @foreach ($members as $member)
                     <tr class="admin_member_table_line">
@@ -83,6 +87,7 @@
                         <td class="admin_member_table_td">{{ $member->email }}</td>
                         <td class="admin_member_table_td">{{ config('master.genders.' . $member->gender) }}</td>
                         <td class="admin_member_table_td">{{ $member->created_at->format('Y/m/d') }}</td>
+                        <td class="admin_member_table_td"><a href="{{ route('admin_member_edit', ['id' => $member->id, 'page' => $members->currentPage()]) }}">編集</a></td>
                     </tr>
                     @endforeach
                 </table>

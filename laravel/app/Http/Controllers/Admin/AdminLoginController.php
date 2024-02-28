@@ -37,6 +37,9 @@ class AdminLoginController extends Controller
     // トップ画面に遷移
     public function showTop()
     {
+        // ページセッションを削除
+        session()->forget('page');
+
         $is_login = Auth::guard('admin')->check();
 
         if ($is_login === false) {

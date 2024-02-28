@@ -156,3 +156,21 @@ Route::get('/admin_member_list', 'Admin\AdminMemberController@showMemberList')->
 
 // 検索処理、管理者会員一覧画面への遷移
 Route::get('/admin_member_list_search', 'Admin\AdminMemberController@showMemberSearch')->name('admin_member_list_search');
+
+// 管理者会員登録画面への遷移
+Route::get('/admin_member_regist', 'Admin\AdminMemberController@showMemberRegist')->name('admin_member_regist');
+
+// 管理者会員登録確認画面への遷移
+Route::post('/admin_member_confirm', 'Admin\AdminMemberController@showMemberConfirm')->name('admin_member_confirm');
+
+// 管理者会員登録処理後、会員一覧画面に遷移
+Route::post('/admin_member_complete', 'Admin\AdminMemberController@showMemberComplete')->name('admin_member_complete');
+
+// 管理者会員編集画面への遷移
+Route::get('/admin_member_edit/{id}', 'Admin\AdminMemberController@showMemberEdit')->name('admin_member_edit');
+
+// 管理者会員編集画面への遷移
+Route::post('/admin_member_edit_confirm', 'Admin\AdminMemberController@showMemberEditConfirm')->name('admin_member_edit_confirm');
+
+// 管理者会員編集処理後、会員一覧画面に遷移
+Route::post('/admin_member_edit_complete', 'Admin\AdminMemberController@showMemberEditComplete')->name('admin_member_edit_complete');
