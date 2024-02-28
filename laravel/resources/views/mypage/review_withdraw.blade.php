@@ -56,7 +56,7 @@
                     <div class="review_resist_form_items">
                         <div class="review_input_group">
                             <p>商品コメント</p>
-                            <p>{{ $review->comment }}</p>
+                            <p>{!! nl2br($review->comment) !!}</p>
                             <input type="hidden" name="review_comment" value="{{ $review->comment }}">
                         </div>
                     </div>

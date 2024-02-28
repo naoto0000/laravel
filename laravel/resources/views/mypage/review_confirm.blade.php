@@ -56,7 +56,7 @@
                     <div class="review_resist_form_items">
                         <div class="review_input_group">
                             <p>商品コメント</p>
-                            <p>{{ session('review_comment') }}</p>
+                            <p>{!! nl2br(e(session('review_comment'))) !!}</p>
                             <input type="hidden" name="review_comment" value="{{ session('review_comment') }}">
                         </div>
                     </div>
