@@ -36,9 +36,18 @@
                     @csrf
                     @endif
 
-                    @if(request()->route()->getName() === 'admin_member_edit_confirm')
-                    <input type="hidden" name="id" value="{{ $id }}">
-                    @endif
+                    <div class="item_group">
+                        <div class="input_name">
+                            <p class="sub_title sub_group">ID</p>
+                            @if(request()->route()->getName() === 'admin_member_confirm')
+                            <p class="confirm_item_contents">登録後自動採番</p>
+                            @elseif(request()->route()->getName() === 'admin_member_edit_confirm')
+                            <p class="confirm_item_contents">{{ $id }}</p>
+                            <input type="hidden" name="id" value="{{ $id }}">
+                            @endif
+
+                        </div>
+                    </div>
 
                     <div class="item_group">
                         <div class="input_name">
@@ -84,15 +93,15 @@
                     <div class="member_regi_submit">
                         <div class="regi_btn">
                             @if(request()->route()->getName() === 'admin_member_confirm')
-                            <input type="submit" id="submitBtn" name="" value="登録完了" class="member_regi_btn">
+                            <input type="submit" id="submitBtn" name="" value="登録完了" class="admin_member_confirm_btn">
                             @elseif(request()->route()->getName() === 'admin_member_edit_confirm')
-                            <input type="submit" id="submitBtn" name="" value="編集完了" class="member_regi_btn">
+                            <input type="submit" id="submitBtn" name="" value="編集完了" class="admin_member_confirm_btn">
                             @endif
                         </div>
                     </div>
                     <div class="member_regi_submit">
                         <div class="regi_btn">
-                            <button type="submit" name='back' value="back" class="member_regi_back_btn">前に戻る</button>
+                            <button type="submit" name='back' value="back" class="admin_member_regi_back_btn">前に戻る</button>
                         </div>
                     </div>
                 </form>

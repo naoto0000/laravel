@@ -79,15 +79,21 @@
                             @endif
                         </th>
                         <th class="admin_member_table_th">編集</th>
+                        <th class="admin_member_table_th">詳細</th>
                     </tr>
                     @foreach ($members as $member)
                     <tr class="admin_member_table_line">
                         <td class="admin_member_table_td">{{ $member->id }}</td>
-                        <td class="admin_member_table_td">{{ $member->name_sei }}{{ $member->name_mei }}</td>
+                        <td class="admin_member_table_td">
+                            <a href="{{ route('admin_member_detail', ['id' => $member->id, 'page' => $members->currentPage()]) }}">
+                                {{ $member->name_sei }}{{ $member->name_mei }}
+                            </a>
+                        </td>
                         <td class="admin_member_table_td">{{ $member->email }}</td>
                         <td class="admin_member_table_td">{{ config('master.genders.' . $member->gender) }}</td>
                         <td class="admin_member_table_td">{{ $member->created_at->format('Y/m/d') }}</td>
                         <td class="admin_member_table_td"><a href="{{ route('admin_member_edit', ['id' => $member->id, 'page' => $members->currentPage()]) }}">編集</a></td>
+                        <td class="admin_member_table_td"><a href="{{ route('admin_member_detail', ['id' => $member->id, 'page' => $members->currentPage()]) }}">詳細</a></td>
                     </tr>
                     @endforeach
                 </table>

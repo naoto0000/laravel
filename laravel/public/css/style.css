@@ -899,3 +899,46 @@ td {
     padding: 5px;
     width: 162px;
 }
+
+.admin_member_confirm_btn {
+    font-size: 23px;
+    padding: 5px 20px;
+    color: blue;
+    background-color: white;
+    border: solid 1px black;
+    border-radius: 5px;
+}
+
+.admin_member_regi_back_btn {
+    font-size: 23px;
+    padding: 3px 19px;
+    color: blue;
+    background-color: white;
+    border: solid 1px black;
+    border-radius: 5px;
+}
+
+/* 会員詳細画面 */
+.admin_member_detail_btn_group {
+    text-align: center;
+    margin-top: 80px;
+}
+
+.admin_member_detail_btn {
+    border: solid 1px black;
+    padding: 10px 30px;
+    font-size: 23px;
+    border-radius: 5px;
+    color: blue;
+    background-color: white;
+    margin: 0 10px;
+}
+
+.admin_member_delete_btn {
+    font-size: 23px;
+    color: blue;
+    background-color: white;
+    border: solid 1px black;
+    border-radius: 5px;
+    padding: 4px 26px;
+}

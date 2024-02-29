@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Member;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AdminMemberController extends Controller
@@ -13,6 +14,11 @@ class AdminMemberController extends Controller
     // 一覧画面に遷移
     public function showMemberList()
     {
+        $is_login = Auth::guard('admin')->check();
+
+        if ($is_login === false) {
+            return redirect()->route('show_admin_login');
+        }
         // 検索条件のセッションをクリア
         session()->forget('member_search_id');
         session()->forget('member_search_gender');
@@ -82,6 +88,12 @@ class AdminMemberController extends Controller
     // 会員登録画面に遷移
     public function showMemberRegist()
     {
+        $is_login = Auth::guard('admin')->check();
+
+        if ($is_login === false) {
+            return redirect()->route('show_admin_login');
+        }
+
         return view('admin.member.regist');
     }
 
@@ -154,6 +166,12 @@ class AdminMemberController extends Controller
     // 会員編集画面に遷移
     public function showMemberEdit(Request $request, $id)
     {
+        $is_login = Auth::guard('admin')->check();
+
+        if ($is_login === false) {
+            return redirect()->route('show_admin_login');
+        }
+
         // ページをセッションに保存
         $page = $request->query('page');
         $request->session()->put('page', $page);
@@ -247,6 +265,41 @@ class AdminMemberController extends Controller
                 'password' => Hash::make($request->input('password')),
                 'email' => $request->input('email'),
             ]);
+        }
+
+        $request->session()->regenerateToken();
+
+        return redirect()->route('admin_member_list');
+    }
+
+    // 会員詳細画面に遷移
+    public function showMemberDetail(Request $request, $id)
+    {
+        $is_login = Auth::guard('admin')->check();
+
+        if ($is_login === false) {
+            return redirect()->route('show_admin_login');
+        }
+
+        // ページをセッションに保存
+        $page = $request->query('page');
+        $request->session()->put('page', $page);
+
+        // $idを使って必要な処理を行う
+        $member = Member::find($id);
+        return view('admin.member.detail', ['member' => $member]);
+    }
+
+    // 編集処理後、会員一覧画面に遷移
+    public function showMemberDelete(Request $request)
+    {
+
+        $id = $request->input('id');
+
+        // メンバーモデルを取得して削除
+        $member = Member::where('id', $id)->first();
+        if ($member) {
+            $member->delete();
         }
 
         $request->session()->regenerateToken();

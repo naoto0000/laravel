@@ -174,3 +174,9 @@ Route::post('/admin_member_edit_confirm', 'Admin\AdminMemberController@showMembe
 
 // 管理者会員編集処理後、会員一覧画面に遷移
 Route::post('/admin_member_edit_complete', 'Admin\AdminMemberController@showMemberEditComplete')->name('admin_member_edit_complete');
+
+// 管理者会員詳細画面への遷移
+Route::get('/admin_member_detail/{id}', 'Admin\AdminMemberController@showMemberDetail')->name('admin_member_detail');
+
+// 管理者会員削除処理後、会員一覧画面に遷移
+Route::post('/admin_member_delete', 'Admin\AdminMemberController@showMemberDelete')->name('admin_member_delete');
