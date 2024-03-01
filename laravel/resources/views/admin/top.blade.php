@@ -24,6 +24,9 @@
             <div class="admin_top_btn_group">
                 <a href="{{ route('admin_member_list') }}" class="admin_top_list_btn">会員一覧</a>
             </div>
+            <div class="admin_top_btn_group admin_top_second_btn">
+                <a href="{{ route('admin_category_list') }}" class="admin_top_list_btn">商品カテゴリ一覧</a>
+            </div>
         </div>
     </main>
 

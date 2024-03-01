@@ -180,3 +180,9 @@ Route::get('/admin_member_detail/{id}', 'Admin\AdminMemberController@showMemberD
 
 // 管理者会員削除処理後、会員一覧画面に遷移
 Route::post('/admin_member_delete', 'Admin\AdminMemberController@showMemberDelete')->name('admin_member_delete');
+
+// 管理者カテゴリ一覧画面への遷移
+Route::get('/admin_category_list', 'Admin\AdminCategoryController@showCategoryList')->name('admin_category_list');
+
+// 検索処理、管理者カテゴリ一覧画面への遷移
+Route::get('/admin_category_list_search', 'Admin\AdminCategoryController@showCategorySearch')->name('admin_category_list_search');

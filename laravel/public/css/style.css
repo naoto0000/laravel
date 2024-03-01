@@ -620,7 +620,6 @@ li.active {
 .review_regist_form {
     border-top: solid 1px black;
     padding-top: 50px;
-    /* margin-bottom: 30px; */
 }
 
 .review_resist_form_items {
@@ -818,6 +817,10 @@ li.active {
     border-radius: 5px;
     background-color: white;
     color: blue;
+}
+
+.admin_top_second_btn {
+    margin-top: 60px;
 }
 
 /* 会員一覧画面 */

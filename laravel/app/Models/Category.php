@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 class Category extends Model
 {
+    use Sortable;
+
     //テーブル名
     protected $table = 'product_categories';
 
@@ -17,4 +20,12 @@ class Category extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function subcategories()
+    {
+        return $this->hasMany(Subcategory::class, 'product_category_id');
+    }
+
+    public $sortable = ['id', 'created_at'];
+
 }
