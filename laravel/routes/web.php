@@ -204,3 +204,9 @@ Route::post('/admin_category_edit_confirm', 'Admin\AdminCategoryController@showC
 
 // 管理者カテゴリ編集処理後、カテゴリ一覧画面に遷移
 Route::post('/admin_category_edit_complete', 'Admin\AdminCategoryController@showCategoryEditComplete')->name('admin_category_edit_complete');
+
+// 管理者カテゴリ詳細画面への遷移
+Route::get('/admin_category_detail/{id}', 'Admin\AdminCategoryController@showCategoryDetail')->name('admin_category_detail');
+
+// 管理者カテゴリ削除処理後、カテゴリ一覧画面に遷移
+Route::post('/admin_category_delete', 'Admin\AdminCategoryController@showCategoryDelete')->name('admin_category_delete');

@@ -94,7 +94,7 @@ class AdminCategoryController extends Controller
 
         // サブカテゴリが空でないことを確認
         if (empty(array_filter($subcategories))) {
-            $rules['subcategory.0'] = 'required'; 
+            $rules['subcategory.0'] = 'required';
             $messages['subcategory.0.required'] = '※カテゴリ小を最低でも1つ入力してください。';
         }
 
@@ -182,7 +182,7 @@ class AdminCategoryController extends Controller
 
         // サブカテゴリが空でないことを確認
         if (empty(array_filter($subcategories))) {
-            $rules['subcategory.0'] = 'required'; 
+            $rules['subcategory.0'] = 'required';
             $messages['subcategory.0.required'] = '※カテゴリ小を最低でも1つ入力してください。';
         }
 
@@ -210,7 +210,7 @@ class AdminCategoryController extends Controller
             ]);
 
             // 既存のサブカテゴリを削除
-            $category->subcategories()->delete();
+            $category->subcategories()->forceDelete();
 
             $subcategories = $request->input('subcategory');
 
@@ -224,6 +224,52 @@ class AdminCategoryController extends Controller
                     'name' => $subcategory,
                 ]);
             }
+
+            $request->session()->regenerateToken();
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+        }
+
+        return redirect()->route('admin_category_list');
+    }
+
+    // カテゴリ詳細画面に遷移
+    public function showCategoryDetail(Request $request, $id)
+    {
+        $is_login = Auth::guard('admin')->check();
+
+        if ($is_login === false) {
+            return redirect()->route('show_admin_login');
+        }
+
+        // ページをセッションに保存
+        $page = $request->query('page');
+        $request->session()->put('page', $page);
+
+        // $idを使って必要な処理を行う
+        $category = Category::find($id);
+        $category->load('subcategories');
+
+        return view('admin.category.detail', ['category' => $category]);
+    }
+
+    // 削除処理後、カテゴリ一覧画面に遷移
+    public function showCategoryDelete(Request $request)
+    {
+
+        $id = $request->input('id');
+
+        DB::beginTransaction();
+        try {
+            // カテゴリモデルを取得して削除
+            $category = Category::where('id', $id)->first();
+            if ($category) {
+                $category->delete();
+            }
+
+            // 既存のサブカテゴリを削除
+            $category->subcategories()->delete();
 
             $request->session()->regenerateToken();
             DB::commit();

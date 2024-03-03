@@ -66,15 +66,19 @@
                             @endif
                         </th>
                         <th class="admin_member_table_th">編集</th>
+                        <th class="admin_member_table_th">詳細</th>
                     </tr>
                     @foreach ($categories as $category)
                     <tr class="admin_member_table_line">
                         <td class="admin_member_table_td">{{ $category->id }}</td>
                         <td class="admin_member_table_td">
+                            <a href="{{ route('admin_category_detail', ['id' => $category->id, 'page' => $categories->currentPage()]) }}">
                             {{ $category->name }}
+                            </a>
                         </td>
                         <td class="admin_member_table_td">{{ $category->created_at->format('Y/m/d') }}</td>
                         <td class="admin_member_table_td"><a href="{{ route('admin_category_edit', ['id' => $category->id, 'page' => $categories->currentPage()]) }}">編集</a></td>
+                        <td class="admin_member_table_td"><a href="{{ route('admin_category_detail', ['id' => $category->id, 'page' => $categories->currentPage()]) }}">詳細</a></td>
                     </tr>
                     @endforeach
                 </table>

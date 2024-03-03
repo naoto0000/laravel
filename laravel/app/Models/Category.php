@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Kyslik\ColumnSortable\Sortable;
 
 class Category extends Model
 {
     use Sortable;
+    use SoftDeletes;
+
 
     //テーブル名
     protected $table = 'product_categories';

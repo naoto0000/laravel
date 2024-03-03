@@ -3,9 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Kyslik\ColumnSortable\Sortable;
 
 class Subcategory extends Model
 {
+    use SoftDeletes;
+
     //テーブル名
     protected $table = 'product_subcategories';
 

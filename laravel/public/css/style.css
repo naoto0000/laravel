@@ -973,3 +973,9 @@ td {
 .admin_indi_sub {
     margin-left: 0;
 }
+
+/* カテゴリ詳細画面 */
+.admin_sub_title {
+    font-size: 23px;
+    width: 40%;
+}
