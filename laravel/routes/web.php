@@ -169,7 +169,7 @@ Route::post('/admin_member_complete', 'Admin\AdminMemberController@showMemberCom
 // 管理者会員編集画面への遷移
 Route::get('/admin_member_edit/{id}', 'Admin\AdminMemberController@showMemberEdit')->name('admin_member_edit');
 
-// 管理者会員編集画面への遷移
+// 管理者会員編集確認への遷移
 Route::post('/admin_member_edit_confirm', 'Admin\AdminMemberController@showMemberEditConfirm')->name('admin_member_edit_confirm');
 
 // 管理者会員編集処理後、会員一覧画面に遷移
@@ -186,3 +186,21 @@ Route::get('/admin_category_list', 'Admin\AdminCategoryController@showCategoryLi
 
 // 検索処理、管理者カテゴリ一覧画面への遷移
 Route::get('/admin_category_list_search', 'Admin\AdminCategoryController@showCategorySearch')->name('admin_category_list_search');
+
+// 管理者カテゴリ登録画面への遷移
+Route::get('/admin_category_regist', 'Admin\AdminCategoryController@showCategoryRegist')->name('admin_category_regist');
+
+// 管理者カテゴリ登録確認画面への遷移
+Route::post('/admin_category_confirm', 'Admin\AdminCategoryController@showCategoryConfirm')->name('admin_category_confirm');
+
+// 管理者カテゴリ登録処理後、カテゴリ一覧画面に遷移
+Route::post('/admin_category_complete', 'Admin\AdminCategoryController@showCategoryComplete')->name('admin_category_complete');
+
+// 管理者カテゴリ編集画面への遷移
+Route::get('/admin_category_edit/{id}', 'Admin\AdminCategoryController@showCategoryEdit')->name('admin_category_edit');
+
+// 管理者カテゴリ編集確認への遷移
+Route::post('/admin_category_edit_confirm', 'Admin\AdminCategoryController@showCategoryEditConfirm')->name('admin_category_edit_confirm');
+
+// 管理者カテゴリ編集処理後、カテゴリ一覧画面に遷移
+Route::post('/admin_category_edit_complete', 'Admin\AdminCategoryController@showCategoryEditComplete')->name('admin_category_edit_complete');

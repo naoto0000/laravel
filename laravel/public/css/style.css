@@ -945,3 +945,31 @@ td {
     border-radius: 5px;
     padding: 4px 26px;
 }
+
+/* 商品カテゴリ登録 */
+.sub_title_admin {
+    font-size: 20px;
+    width: 40%;
+}
+
+.item_group_admin {
+    margin-bottom: 30px;
+}
+
+.subcategory_input {
+    height: 24px;
+    width: 100%;
+    margin: 15px 0;
+}
+
+.subcategory_input_group {
+    width: 60%;
+}
+
+.admin_sub_group {
+    width: 40%;
+}
+
+.admin_indi_sub {
+    margin-left: 0;
+}
