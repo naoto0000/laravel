@@ -210,3 +210,9 @@ Route::get('/admin_category_detail/{id}', 'Admin\AdminCategoryController@showCat
 
 // 管理者カテゴリ削除処理後、カテゴリ一覧画面に遷移
 Route::post('/admin_category_delete', 'Admin\AdminCategoryController@showCategoryDelete')->name('admin_category_delete');
+
+// 管理者商品一覧画面への遷移
+Route::get('/admin_product_list', 'Admin\AdminProductController@showProductList')->name('admin_product_list');
+
+// 検索処理、管理者商品一覧画面への遷移
+Route::get('/admin_product_list_search', 'Admin\AdminProductController@showProductSearch')->name('admin_product_list_search');

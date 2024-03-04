@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 class Product extends Model
 {
+    use Sortable;
+
     //テーブル名
     protected $table = 'products';
 
@@ -25,4 +28,7 @@ class Product extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public $sortable = ['id', 'created_at'];
+
 }
