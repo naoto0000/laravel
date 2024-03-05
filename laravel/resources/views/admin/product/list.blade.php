@@ -20,6 +20,9 @@
 
     <main>
         <div class="admin_list_container">
+            <div class="admin_list_regist">
+                <a href="{{ route('admin_product_regist') }}" class="admin_list_regist_btn">商品登録</a>
+            </div>
             <div class="member_search">
                 <form action="{{ route('admin_product_list_search') }}" method="get">
                     <table class="search_admin_group">
@@ -71,7 +74,7 @@
                             {{ $product->name }}
                         </td>
                         <td class="admin_member_table_td">{{ $product->created_at->format('Y/m/d') }}</td>
-                        <td class="admin_member_table_td"><a href="">編集</a></td>
+                        <td class="admin_member_table_td"><a href="{{ route('admin_product_edit', ['id' => $product->id, 'page' => $products->currentPage()]) }}">編集</a></td>
                     </tr>
                     @endforeach
                 </table>

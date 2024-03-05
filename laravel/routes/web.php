@@ -216,3 +216,27 @@ Route::get('/admin_product_list', 'Admin\AdminProductController@showProductList'
 
 // 検索処理、管理者商品一覧画面への遷移
 Route::get('/admin_product_list_search', 'Admin\AdminProductController@showProductSearch')->name('admin_product_list_search');
+
+// 管理者商品登録画面への遷移
+Route::get('/admin_product_regist', 'Admin\AdminProductController@showProductRegist')->name('admin_product_regist');
+
+// 管理者商品登録画面、カテゴリー選択処理
+Route::get('/adminGetSubcategories', 'Admin\AdminProductController@getSubcategories')->name('adminGetSubcategories');
+
+// 管理者、画像アップロード
+Route::post('/adminUpload', 'Admin\AdminProductController@upload')->name('adminUpload');
+
+// 管理者、商品登録確認のルーティング
+Route::post('/admin_product_confirm', 'Admin\AdminProductController@adminShowConfirm')->name('admin_product_confirm');
+
+// 管理者、商品登録完了のルーティング
+Route::post('/admin_product_complete', 'Admin\AdminProductController@adminShowComplete')->name('admin_product_complete');
+
+// 管理者商品編集画面への遷移
+Route::get('/admin_product_edit/{id}', 'Admin\AdminProductController@showProductEdit')->name('admin_product_edit');
+
+// 管理者、商品編集確認への遷移
+Route::post('/admin_product_edit_confirm', 'Admin\AdminProductController@showProductEditConfirm')->name('admin_product_edit_confirm');
+
+// 管理者、商品編集完了のルーティング
+Route::post('/admin_product_edit_complete', 'Admin\AdminProductController@showProductEditComplete')->name('admin_product_edit_complete');
