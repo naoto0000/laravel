@@ -246,3 +246,9 @@ Route::get('/admin_product_detail/{id}', 'Admin\AdminProductController@showProdu
 
 // 管理者、商品削除処理後、商品一覧画面に遷移
 Route::post('/admin_product_delete', 'Admin\AdminProductController@showProductDelete')->name('admin_product_delete');
+
+// 管理者、商品レビュー一覧画面への遷移
+Route::get('/admin_review_list', 'Admin\AdminReviewController@showReviewList')->name('admin_review_list');
+
+// 検索処理、管理者商品レビュー一覧画面への遷移
+Route::get('/admin_review_list_search', 'Admin\AdminReviewController@showReviewSearch')->name('admin_review_list_search');
