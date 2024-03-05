@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Member;
 use App\Models\Product;
+use App\Models\Review;
 use App\Models\Subcategory;
 use App\Rules\CategoryValue;
 use App\Rules\MemberValue;
@@ -117,10 +118,10 @@ class AdminProductController extends Controller
 
         if ($subcategoryId) {
             // サブカテゴリーの選択肢を設定する
-            return response()->json(['options' => $options, 'selected' => $subcategoryId]);// // 取得したサブカテゴリーをビューに渡して、Ajaxリクエストに応答
+            return response()->json(['options' => $options, 'selected' => $subcategoryId]); // // 取得したサブカテゴリーをビューに渡して、Ajaxリクエストに応答
         } else {
             // サブカテゴリーの選択肢を設定する
-            return response()->json(['options' => $options, 'selected' => session('subcategory')]);// // 取得したサブカテゴリーをビューに渡して、Ajaxリクエストに応答
+            return response()->json(['options' => $options, 'selected' => session('subcategory')]); // // 取得したサブカテゴリーをビューに渡して、Ajaxリクエストに応答
 
         }
     }
@@ -342,6 +343,77 @@ class AdminProductController extends Controller
         ]);
 
         $request->session()->regenerateToken();
+
+        return redirect()->route('admin_product_list');
+    }
+
+    // 商品詳細画面に遷移
+    public function showProductDetail(Request $request, $id)
+    {
+        $is_login = Auth::guard('admin')->check();
+
+        if ($is_login === false) {
+            return redirect()->route('show_admin_login');
+        }
+
+        // ページをセッションに保存
+        $page = $request->query('list_page');
+        $request->session()->put('list_page', $page);
+
+        // $idを使って必要な処理を行う
+        $product = Product::find($id);
+
+        // $productのmember_idに対応するMemberモデルを取得
+        $member = Member::find($product->member_id);
+        // $productのproduct_category_idに対応するCategoryモデルを取得
+        $category = Category::find($product->product_category_id);
+        // $productのproduct_subcategory_idに対応するSubcategoryモデルを取得
+        $subcategory = Subcategory::find($product->product_subcategory_id);
+
+        // レビューの総合評価取得
+        $average = DB::table('reviews')
+            ->where('product_id', $id)
+            ->avg('evaluation');
+
+        $average = ceil($average);
+
+        // レビュー取得
+        $reviews = DB::table('reviews')
+            ->join('members', 'reviews.member_id', '=', 'members.id')
+            ->select('reviews.*', 'members.name_sei as name_sei', 'members.name_mei as name_mei')
+            ->where('reviews.product_id', $id)
+            ->orderByDesc('reviews.id')
+            ->paginate(3);
+
+
+        return view('admin.product.detail', compact('product', 'member', 'category', 'subcategory', 'average', 'reviews'));
+    }
+
+    // 削除処理後、商品一覧画面に遷移
+    public function showProductDelete(Request $request)
+    {
+
+        $id = $request->input('id');
+
+        DB::beginTransaction();
+        try {
+            // 商品モデルを取得して削除
+            $product = Product::where('id', $id)->first();
+            if ($product) {
+                $product->delete();
+            }
+
+            // レビューモデルを取得して削除
+            $review = Review::where('product_id', $id);
+            if ($review) {
+                $review->delete();
+            }
+
+            $request->session()->regenerateToken();
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+        }
 
         return redirect()->route('admin_product_list');
     }

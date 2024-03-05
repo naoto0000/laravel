@@ -66,15 +66,19 @@
                             @endif
                         </th>
                         <th class="admin_member_table_th">編集</th>
+                        <th class="admin_member_table_th">詳細</th>
                     </tr>
                     @foreach ($products as $product)
                     <tr class="admin_member_table_line">
                         <td class="admin_member_table_td">{{ $product->id }}</td>
                         <td class="admin_member_table_td">
+                            <a href="{{ route('admin_product_detail', ['id' => $product->id, 'list_page' => $products->currentPage()]) }}">
                             {{ $product->name }}
+                            </a>
                         </td>
                         <td class="admin_member_table_td">{{ $product->created_at->format('Y/m/d') }}</td>
                         <td class="admin_member_table_td"><a href="{{ route('admin_product_edit', ['id' => $product->id, 'page' => $products->currentPage()]) }}">編集</a></td>
+                        <td class="admin_member_table_td"><a href="{{ route('admin_product_detail', ['id' => $product->id, 'list_page' => $products->currentPage()]) }}">詳細</a></td>
                     </tr>
                     @endforeach
                 </table>

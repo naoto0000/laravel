@@ -979,3 +979,22 @@ td {
     font-size: 23px;
     width: 40%;
 }
+
+/* 商品詳細画面 */
+.product_detail_review_avg {
+    font-size: 25px;
+    display: flex;
+    background-color: #bbbbbb;
+    align-items: center;
+    height: 70px;
+}
+
+.admin_list_item_evaluation {
+    display: flex;
+    align-items: center;
+}
+
+.admin_list_star {
+    margin-left: 40px;
+    margin-right: 20px;
+}

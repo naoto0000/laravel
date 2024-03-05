@@ -240,3 +240,9 @@ Route::post('/admin_product_edit_confirm', 'Admin\AdminProductController@showPro
 
 // 管理者、商品編集完了のルーティング
 Route::post('/admin_product_edit_complete', 'Admin\AdminProductController@showProductEditComplete')->name('admin_product_edit_complete');
+
+// 管理者、商品詳細画面への遷移
+Route::get('/admin_product_detail/{id}', 'Admin\AdminProductController@showProductDetail')->name('admin_product_detail');
+
+// 管理者、商品削除処理後、商品一覧画面に遷移
+Route::post('/admin_product_delete', 'Admin\AdminProductController@showProductDelete')->name('admin_product_delete');
