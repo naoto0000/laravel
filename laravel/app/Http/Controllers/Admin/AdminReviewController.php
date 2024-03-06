@@ -241,16 +241,66 @@ class AdminReviewController extends Controller
             return redirect('/admin_review_edit/' . $review_id)->withInput();
         }
 
-        // 指定されたIDに対応する既存の会員レコードを取得
+        // 指定されたIDに対応する既存のレビューレコードを取得
         $review = Review::findOrFail($review_id);
 
-        // 会員情報を更新
+        // レビュー情報を更新
         $review->update([
             'member_id' => $request->input('member_id'),
             'product_id' => $request->input('product_id'),
             'evaluation' => $request->input('evaluation'),
             'comment' => $request->input('review_comment'),
         ]);
+
+        $request->session()->regenerateToken();
+
+        return redirect()->route('admin_review_list');
+    }
+
+    // レビュー詳細画面に遷移
+    public function showReviewDetail(Request $request, $id)
+    {
+        $is_login = Auth::guard('admin')->check();
+
+        if ($is_login === false) {
+            return redirect()->route('show_admin_login');
+        }
+
+        // ページをセッションに保存
+        $page = $request->query('page');
+        $request->session()->put('page', $page);
+
+        // $idを使って必要な処理を行う
+        $review = Review::find($id);
+
+        $product_id = $review->product_id;
+
+        // 商品情報を取得
+        $product = DB::table('products')
+            ->select('*')
+            ->where('id', $product_id)
+            ->first();
+
+        // レビューの総合評価取得
+        $average = DB::table('reviews')
+            ->where('product_id', $product_id)
+            ->avg('evaluation');
+
+        $average = ceil($average);
+
+        return view('admin.review.detail', compact('review', 'product', 'average'));
+    }
+
+    // 削除処理後、商品レビュー一覧画面に遷移
+    public function showReviewDelete(Request $request)
+    {
+        $id = $request->input('id');
+
+        // レビューモデルを取得して削除
+        $review = Review::where('id', $id)->first();
+        if ($review) {
+            $review->delete();
+        }
 
         $request->session()->regenerateToken();
 

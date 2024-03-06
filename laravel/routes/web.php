@@ -270,3 +270,9 @@ Route::post('/admin_review_edit_confirm', 'Admin\AdminReviewController@showRevie
 
 // 管理者、商品レビュー編集完了のルーティング
 Route::post('/admin_review_edit_complete', 'Admin\AdminReviewController@showReviewEditComplete')->name('admin_review_edit_complete');
+
+// 管理者、商品レビュー詳細画面への遷移
+Route::get('/admin_review_detail/{id}', 'Admin\AdminReviewController@showReviewDetail')->name('admin_review_detail');
+
+// 管理者、商品レビュー削除処理後、商品一覧画面に遷移
+Route::post('/admin_review_delete', 'Admin\AdminReviewController@showReviewDelete')->name('admin_review_delete');

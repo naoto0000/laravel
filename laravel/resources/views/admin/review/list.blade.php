@@ -69,15 +69,21 @@
                             @endif
                         </th>
                         <th class="admin_member_table_th">編集</th>
+                        <th class="admin_member_table_th">詳細</th>
                     </tr>
                     @foreach ($reviews as $review)
                     <tr class="admin_member_table_line">
                         <td class="admin_member_table_td">{{ $review->id }}</td>
                         <td class="admin_member_table_td">{{ $review->product_id }}</td>
                         <td class="admin_member_table_td">{{ $review->evaluation }}</td>
-                        <td class="admin_member_table_td">{{ $review->comment }}</td>
+                        <td class="admin_member_table_td">
+                            <a href="{{ route('admin_review_detail', ['id' => $review->id, 'page' => $reviews->currentPage()]) }}">
+                            {{ $review->comment }}
+                            </a>
+                        </td>
                         <td class="admin_member_table_td">{{ $review->created_at->format('Y/m/d') }}</td>
                         <td class="admin_member_table_td"><a href="{{ route('admin_review_edit', ['id' => $review->id, 'page' => $reviews->currentPage()]) }}">編集</a></td>
+                        <td class="admin_member_table_td"><a href="{{ route('admin_review_detail', ['id' => $review->id, 'page' => $reviews->currentPage()]) }}">詳細</a></td>
                     </tr>
                     @endforeach
                 </table>
