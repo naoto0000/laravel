@@ -998,3 +998,9 @@ td {
     margin-left: 40px;
     margin-right: 20px;
 }
+
+/* レビュー確認画面 */
+.admin_review_border {
+    border-bottom: solid 1px black;
+    margin-bottom: 50px;
+}

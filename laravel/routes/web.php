@@ -252,3 +252,21 @@ Route::get('/admin_review_list', 'Admin\AdminReviewController@showReviewList')->
 
 // 検索処理、管理者商品レビュー一覧画面への遷移
 Route::get('/admin_review_list_search', 'Admin\AdminReviewController@showReviewSearch')->name('admin_review_list_search');
+
+// 管理者商品レビュー登録画面への遷移
+Route::get('/admin_review_regist', 'Admin\AdminReviewController@showReviewRegist')->name('admin_review_regist');
+
+// 管理者、商品レビュー登録確認のルーティング
+Route::post('/admin_review_confirm', 'Admin\AdminReviewController@adminReviewConfirm')->name('admin_review_confirm');
+
+// 管理者、商品レビュー登録完了のルーティング
+Route::post('/admin_review_complete', 'Admin\AdminReviewController@adminReviewComplete')->name('admin_review_complete');
+
+// 管理者商品レビュー編集画面への遷移
+Route::get('/admin_review_edit/{id}', 'Admin\AdminReviewController@showReviewEdit')->name('admin_review_edit');
+
+// 管理者、商品レビュー編集確認への遷移
+Route::post('/admin_review_edit_confirm', 'Admin\AdminReviewController@showReviewEditConfirm')->name('admin_review_edit_confirm');
+
+// 管理者、商品レビュー編集完了のルーティング
+Route::post('/admin_review_edit_complete', 'Admin\AdminReviewController@showReviewEditComplete')->name('admin_review_edit_complete');

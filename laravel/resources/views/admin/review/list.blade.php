@@ -20,6 +20,10 @@
 
     <main>
         <div class="admin_list_container">
+            <div class="admin_list_regist">
+                <a href="{{ route('admin_review_regist') }}" class="admin_list_regist_btn">商品レビュー登録</a>
+            </div>
+
             <div class="member_search">
                 <form action="{{ route('admin_review_list_search') }}" method="get">
                     <table class="search_admin_group">
@@ -73,7 +77,7 @@
                         <td class="admin_member_table_td">{{ $review->evaluation }}</td>
                         <td class="admin_member_table_td">{{ $review->comment }}</td>
                         <td class="admin_member_table_td">{{ $review->created_at->format('Y/m/d') }}</td>
-                        <td class="admin_member_table_td"><a href="">編集</a></td>
+                        <td class="admin_member_table_td"><a href="{{ route('admin_review_edit', ['id' => $review->id, 'page' => $reviews->currentPage()]) }}">編集</a></td>
                     </tr>
                     @endforeach
                 </table>
